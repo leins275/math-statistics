@@ -3,6 +3,7 @@
 \usepackage{graphics}
 \usepackage[english,russian]{babel}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{longtable}
 \usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
 \usepackage{verbatim}
@@ -59,32 +60,38 @@
 
 \subsection{Нормальное распределение}
 
-\begin{equation} \label{eq1}
-f(x)= \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x - x_0)^2}{2\sigma^2}}
+\begin{equation}
+f(x)= \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
 \end{equation}
 
 \subsection{Распределение Коши}
 
-\begin{equation} \label{eq2}
-f(x)= \frac{1}{\pi}\bigg[ \frac{\gamma}{(x - x_0)^2 + \gamma^2}\ \bigg]
+\begin{equation}
+f(x)= \frac{1}{\pi}\bigg[ \frac{1}{x^2 + 1}\ \bigg]
 \end{equation}
 
 \subsection{Распределение Лапласа}
 
-\begin{equation} \label{eq3}
-f(x)= \frac{\alpha}{2}e^{-\alpha|x - \beta|}
+\begin{equation} 
+f(x)= \frac{1}{\sqrt{2}}e^{-\sqrt{2}x}
 \end{equation}
 
 \subsection{Равномерное распределение}
 
-\begin{equation} \label{eq4}
-f(x)= \frac{1}{b - a}
+\begin{equation}
+      f(x) = 
+      \begin{cases}
+      \frac{1}{2\sqrt{3}}, |x| \leq \sqrt{3} \\
+      0, |x| > \sqrt{3}
+      \end{cases}
 \end{equation}
+
+
 
 \subsection{Распределение Пуассона}
 
 \begin{equation} \label{eq5}
-P(\lambda) = \frac{\lambda^k}{k!}e^{-\lambda}
+P(7) = \frac{7^k}{k!}e^{-7}
 \end{equation}
 
 \pagebreak
