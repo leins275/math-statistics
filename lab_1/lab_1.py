@@ -23,14 +23,14 @@ name = 'Распределение Лапласа'
 distr = st.laplace(loc=0, scale=sqrt(2))
 # --------------------------------------------
 '''
-'''
+
 # --------- Равномерное распределение ------------
 name = 'Равномерное распределение'
 distr = st.uniform(loc=-sqrt(3), scale=sqrt(3))
 # -------------------------------------------------
-'''
+
 # GRAPHICS
-'''
+
 plt.figure(1, figsize=(9, 3))
 for i in range(3):
     n_plot = 131 + i
@@ -43,11 +43,12 @@ for i in range(3):
     plt.grid(True)
 plt.suptitle(name)
 plt.show()
-'''
 
+
+'''
 # --------- Распределение Пуассона ------------
 name = 'Распределение Пуассона'
-mu = 0.6
+mu = 7
 distr = st.poisson
 # ---------------------------------------------
 
@@ -65,4 +66,4 @@ for i in range(3):
     plt.grid(True)
 plt.suptitle(name)
 plt.show()
-
+'''
