@@ -1,14 +1,20 @@
 \documentclass[12pt]{article}
+\usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphics}
-\usepackage[english,russian]{babel}
+\usepackage[english, russian]{babel}
+\usepackage{csquotes}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{longtable}
 \usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
 \usepackage{verbatim}
+\usepackage{hyperref}
 
 \setcounter{tocdepth}{4}
+\graphicspath{ {./pic/} }
+
+\addto\captionsrussian{\def\refname{6 \: Литература}}
 
 \begin{document}
 
@@ -45,7 +51,6 @@
 %%%
 % \settocdepth{chapter}
 \tableofcontents
-\pagebreak
 \listoffigures
 \pagebreak
 
@@ -58,7 +63,7 @@
 Сравнить графики распределения выборок случайных чисел, сгенерированных при помощи различных функций распределения, с теоретическими кривыми распределения для выборок мощностями 10, 50, 100.
 
 \section{Теория}
-Рассмотрим использованные распределения подробней.
+Рассмотрим использованные распределения подробней. Общий вид распределений можно проверить, например, тут: \cite{wiki}
 
 \subsection{Нормальное распределение}
 
@@ -69,7 +74,7 @@ f(x)= \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
 \subsection{Распределение Коши}
 
 \begin{equation}
-f(x)= \frac{1}{\pi}\bigg[ \frac{1}{x^2 + 1}\ \bigg]
+f(x)= \frac{1}{\pi}\bigg( \frac{1}{x^2 + 1}\ \bigg)
 \end{equation}
 
 \subsection{Распределение Лапласа}
@@ -83,29 +88,27 @@ f(x)= \frac{1}{\sqrt{2}}e^{-\sqrt{2}x}
 \begin{equation}
       f(x) = 
       \begin{cases}
-      \frac{1}{2\sqrt{3}}, |x| \leq \sqrt{3} \\
-      0, |x| > \sqrt{3}
+      \frac{1}{2\sqrt{3}}, \quad |x| \leq \sqrt{3} \\
+      0, \qquad |x| > \sqrt{3}
       \end{cases}
 \end{equation}
 
-
-
 \subsection{Распределение Пуассона}
 
-\begin{equation} \label{eq5}
+\begin{equation}
 P(7) = \frac{7^k}{k!}e^{-7}
 \end{equation}
 
 \pagebreak
 
 \section{Реализация}
-Выполнено средствами \textit{python} c применением библиотек \textit{numpy, scipy and matplotlib}
+Выполнено средствами \textit{python} c применением библиотек \textit{numpy, scipy} and \textit{matplotlib}
 
 \section{Результаты}
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=1\textwidth]{normal.png} 
+\includegraphics[width=\textwidth]{normal.png} 
 \caption{Нормальное распределение}
 \end{center}
 \end{figure}
@@ -149,11 +152,10 @@ P(7) = \frac{7^k}{k!}e^{-7}
 \par
 Конечно, за счёт того что размеры выборок довольно малы, то могут наблюдаться некоторые "выбросы" в конкретных точках (особенно заметно на самых левых графиках для мощности 10). Это объясняется тем, что значения выборки генерируются случайным образом и данных на такой мощности для построения теоретических оценок оказывается недостаточно.
 
-
-\section{Литература}
-\begin{enumerate}
-\item Конспекты
-\item Википедия
-\end{enumerate}
+\addcontentsline{toc}{section}{6 \: Литература}
+ 
+\begin{thebibliography}{}
+    \bibitem{wiki} \url{https://www.wikipedia.org/}
+\end{thebibliography}
 
 \end{document}
