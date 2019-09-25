@@ -19,70 +19,10 @@
 \usepackage{float}
 
 %******************************************************************
-\usepackage{mathrsfs}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\lhead{}
-\chead{}
-\rhead{}
-\lfoot{}
-\cfoot{} 
-\rfoot{\normalsize\thepage}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-\newcommand{\RomanNumeralCaps}[1]
-    {\MakeUppercase{\romannumeral #1}}
-\usepackage{amssymb,latexsym}  % Standard packages
-\usepackage[utf8]{inputenc}
-\usepackage[russian]{babel}
-\usepackage{MnSymbol}
-\usepackage{mathrsfs}
-\usepackage{amsmath,amsthm}
-\usepackage{indentfirst}
-\usepackage{graphicx}%,vmargin}
-\usepackage{graphicx}
-\graphicspath{{pictures/}} 
-\usepackage{verbatim}
-\usepackage{color}
-\usepackage[nottoc,numbib]{tocbibind}
-\usepackage{float}
-\usepackage{listings}
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-}
-\lstset{style=mystyle}
-\usepackage{url}
-\urldef\myurl\url{foo%.com}
-\DeclareGraphicsExtensions{.pdf,.png,.jpg}% -- настройка картинок
-\usepackage{epigraph} %%% to make inspirational quotes.
-\usepackage[all]{xy} %for XyPic'a
-\usepackage{color} 
-\usepackage{amscd} %для коммутативных диграмм
 %******************************************************************
 
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
-
-\addto\captionsrussian{\def\refname{6 \: Литература}}
 
 \begin{document}
 
@@ -131,7 +71,7 @@
 % Text
 %%%
 \section{Постановка задачи}
-Любыми средствами сгенерировать выборки размеров $20,$ $60,$ $100$ элементов для $5$ти распределений \cite{distr_formulas}. Для каждой выборки вычислить $\overline{x},\; med\; x,\; Z_R,\; Z_Q,\; Z_{tr},$ при $r = \frac{n}{4}.$
+Любыми средствами сгенерировать выборки размеров $20,$ $60,$ $100$ элементов для $5$ти распределений. Для каждой выборки вычислить $\overline{x},\; med\; x,\; Z_R,\; Z_Q,\; Z_{tr},$ при $r = \frac{n}{4}.$
 
 Распределения:
 \begin{enumerate}
@@ -144,13 +84,13 @@
 
 \section{Теория}
 
-\subsection{Выборочное среднее}
+\subsection{Выборочное среднее \cite{average}}
 
 \begin{equation}
 \overline{x} = \frac{1}{n}\sum_{i=1}^n x_i \hfill \label{eqn:average}
 \end{equation}
 
-\subsection{Выборочная медиана}
+\subsection{Выборочная медиана \cite{med}}
 
 \begin{equation}
 med\; x = \begin{cases}
@@ -159,20 +99,20 @@ x_{k+1}, & n = 2k+1\\
 \end{cases} \hfill  \label{eqn:med}
 \end{equation}
 
-\subsection{Полусумма экстремальных значений}
+\subsection{Полусумма экстремальных значений \cite{mean_extr}}
 
 \begin{equation} 
 Z_R = \frac{1}{2}\left(x_1+x_n\right) \hfill  \label{eqn:mean_extr}
 \end{equation}
 
-\subsection{Полусумма квартилей}
+\subsection{Полусумма квартилей \cite{quartiles}}
 
 \begin{equation}
 Z_Q = \frac{1}{2}\left(Z_{\frac{1}{4}}+Z_{\frac{3}{4}}\right) \hfill  
 \label{eqn:quartiles}
 \end{equation}
 
-\subsection{Усечённое среднее}
+\subsection{Усечённое среднее \cite{cut_mean}}
 
 \begin{equation}
 Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
@@ -181,7 +121,7 @@ Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
 \pagebreak
 
 \section{Реализация}
-Выполнено средствами \textit{python} c применением библиотеки \textit{numpy}
+Выполнено средствами \textit{python} c применением библиотеки \textit{numpy}\cite{numpy}
 
 \section{Результаты}
 
@@ -332,19 +272,46 @@ D =       &0.020288    &0.033268    &0.217616    &0.017067    &0.027989    \\
 
 \section{Обсуждение}
 
-\addcontentsline{toc}{section}{6 \: Литература} 
-\begin{thebibliography}{}
-    \bibitem{wiki} \url{https://www.wikipedia.org/}
-\end{thebibliography}
+\par При вычислении средних значений пришлось отбрасывать некоторое число знаков после запятой, так как дисперсия может гарантировать порядок точности среднего значения только до первого значащего знака после запятой в дисперсии включительно. Единственное исключение - стандартное распределение Коши, так как оно имеет бесконечную дисперсию, а значит не может гарантировать никакой точности.
 
 \section{Выводы}
-В результате работы были построены графики для трёх выборок разных мощностей для каждого из рассматриваемых распределений. Из графиков видно, что с увеличением мощности выборки, диаграмма всё менее отклоняется от теоретического значения. Это иллюстрирует факт того, что при стремлении можности выборки к бесконечности диаграмма выборки будет оцениваться теоретической кривой с любой интересующей нас точностью.
-\par
-Конечно, за счёт того что размеры выборок довольно малы, то могут наблюдаться некоторые "выбросы" в конкретных точках (особенно заметно на самых левых графиках для мощности 10). Это объясняется тем, что значения выборки генерируются случайным образом и данных на такой мощности для построения теоретических оценок оказывается недостаточно.
+
+\par В процессе работы вычислены значения характеристик положения для определённых распределений на выборках фиксированной мощности и получено следующее ранжирование характеристик положения:
+
+\begin{enumerate}
+    \item Стандартное нормальное распределение $$\overline{x} < Z_{tr} < Z_Q < med\;x < Z_R$$
+    
+    \item Стандартное распределение Коши $$med\;x < Z_Q < Z_{tr} < \overline{x} < Z_R$$
+    
+    \item Распределение Лапласа (коэффициент масштаба $\sqrt{2}$ коэффициент сдвига равен нулю) $$med\;x < Z_{tr} < \overline{x} < Z_Q < Z_R$$
+    
+    \item Равномерное распределение на отрезке $\left[-\sqrt{3},\sqrt{3}\right]$ $$Z_R < \overline{x} < Z_{tr} < Z_Q < med\;x$$
+    
+    \item Распределение Пуассона (значение мат ожидания равно $3$) $$\overline{x} < Z_{tr} < Z_Q < med\;x < Z_R$$
+    
+\end{enumerate}
+
+\begin{thebibliography}{}
+    \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
+    
+    \bibitem{average}  
+    Выборочное среднее  -  https://en.wikipedia.org/wiki/Sample\_mean\_and\_covariance
+    
+    \bibitem{med}  
+    Выборочная медиана  -  http://femto.com.ua/articles/part\_1/2194.html
+    
+    \bibitem{mean_extr}  
+    Полусумма экстремальных значений  -  https://studopedia.info/8-56888.html
+    
+    \bibitem{quartiles}  
+    Квартили  -  https://studfiles.net/preview/2438125/page:13/
+    
+    \bibitem{cut_mean}  Усечённое среднее  -  https://ole-olesko.livejournal.com/15773.html
+\end{thebibliography}
 
 \section{Приложения}
 
-Исходники: \url{https://github.com/LanskovNV/math_statistics}
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_2}
 
 \end{document}
 
