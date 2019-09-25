@@ -103,9 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# pycharm
-.idea/*
-
 # tex
 lab*/build/*
 lab*/*.csv
