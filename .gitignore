@@ -108,3 +108,4 @@ venv.bak/
 
 # tex
 lab*/build/*
+CONVERTER_RESILT.tex

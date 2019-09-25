@@ -10,6 +10,21 @@
 \usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
 \usepackage{verbatim}
 \usepackage{hyperref}
+\usepackage{amssymb,latexsym}  % Standard packages
+
+
+\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{indentfirst}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{float}
+
+\usepackage{epigraph} %%% to make inspirational quotes.
+\usepackage[all]{xy} %for XyPic'a
+\usepackage{color} 
+\usepackage{amscd} %для коммутативных диграмм
+\usepackage{listings}
 
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
@@ -27,10 +42,9 @@
 
 	\vfill ~
 	\textbf{
-		\\ \large ЛАБОРАТОРНАЯ РАБОТА №1
+		\\ \large ЛАБОРАТОРНАЯ РАБОТА №2
 		\\	\normalsize	
-			Сравнение распределений выборок для различных 
-		\\	функций распределения с теоретическими оценками
+			Характеристики положения выборки
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
@@ -51,7 +65,11 @@
 %%%
 % \settocdepth{chapter}
 \tableofcontents
-\listoffigures
+\newpage
+% \listoffigures
+% \newpage
+\listoftables
+\newpage
 \pagebreak
 
 % \setcounter{chapter}{1}
@@ -60,64 +78,369 @@
 % Text
 %%%
 \section{Постановка задачи}
-Сравнить графики распределения выборок случайных чисел, сгенерированных при помощи различных функций распределения, с теоретическими кривыми распределения для выборок мощностями 10, 50, 100.
+Любыми средствами сгенерировать выборки размеров $20,$ $60,$ $100$ элементов для $5$ти распределений \cite{distr_formulas}. Для каждой выборки вычислить $\overline{x},\; med\; x,\; Z_R,\; Z_Q,\; Z_{tr},$ при $r = \frac{n}{4}.$
+
+Распределения:
+\begin{enumerate}
+\item Стандартное нормальное распределение
+\item Стандартное распределение Коши
+\item Распределение Лапласа с коэффициентом масштаба $\sqrt{2}$ и нулевым коэффициентом сдвига.
+\item Равномерное распределение на отрезке $\left[-\sqrt{3}, \sqrt{3}\right]$
+\item Распределение Пуассона со значением матожидания равным двум.
+\end{enumerate}
 
 \section{Теория}
-Рассмотрим использованные распределения подробней. Общий вид распределений можно проверить, например, тут: \cite{wiki}
 
-\subsection{Нормальное распределение}
-
-\begin{equation}
-f(x)= \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
-\end{equation}
-
-\subsection{Распределение Коши}
+\subsection{Выборочное среднее}
 
 \begin{equation}
-f(x)= \frac{1}{\pi}\bigg( \frac{1}{x^2 + 1}\ \bigg)
+\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i \hfill \label{eqn:average}
 \end{equation}
 
-\subsection{Распределение Лапласа}
+\subsection{Выборочная медиана}
+
+\begin{equation}
+med\; x = \begin{cases}
+x_{k+1}, & n = 2k+1\\
+\frac{1}{2}\left(x_k+x_{k+1}\right), & n = 2k
+\end{cases} \hfill  \label{eqn:med}
+\end{equation}
+
+\subsection{Полусумма экстремальных значений}
 
 \begin{equation} 
-f(x)= \frac{1}{\sqrt{2}}e^{-\sqrt{2}x}
+Z_R = \frac{1}{2}\left(x_1+x_n\right) \hfill  \label{eqn:mean_extr}
 \end{equation}
 
-\subsection{Равномерное распределение}
+\subsection{Полусумма квартилей}
 
 \begin{equation}
-      f(x) = 
-      \begin{cases}
-      \frac{1}{2\sqrt{3}}, \quad |x| \leq \sqrt{3} \\
-      0, \qquad |x| > \sqrt{3}
-      \end{cases}
+Z_Q = \frac{1}{2}\left(Z_{\frac{1}{4}}+Z_{\frac{3}{4}}\right) \hfill  
+\label{eqn:quartiles}
 \end{equation}
 
-\subsection{Распределение Пуассона}
+\subsection{Усечённое среднее}
 
 \begin{equation}
-P(7) = \frac{7^k}{k!}e^{-7}
+Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
 \end{equation}
 
 \pagebreak
 
 \section{Реализация}
-Выполнено средствами \textit{python} c применением библиотек \textit{numpy, scipy} and \textit{matplotlib}
+Выполнено средствами \textit{python} c применением библиотеки \textit{numpy}
 
 \section{Результаты}
 
+\begin{table}[H]
+\caption{out1}
+\label{tab:my_label1}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|}
+\hline
+-------------------------------------\\
+\hline
+normal\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out2}
+\label{tab:my_label2}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|}
+\hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.013333   &0.009063    &-0.005522   &-0.012054   &-0.002018   \\
+\hline
+D =       &0.046945    &0.076766    &0.142835    &0.056061    &0.060165    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out3}
+\label{tab:my_label3}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.001963    &-0.003607   &-0.010240   &-0.004640   &-0.001696   \\
+\hline
+D =       &0.016037    &0.025284    &0.107303    &0.020871    &0.020296    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out4}
+\label{tab:my_label4}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.006258   &0.000041    &0.004206    &-0.000581   &-0.000962   \\
+\hline
+D =       &0.009937    &0.015242    &0.088866    &0.012238    &0.012099    \\
+\hline
+------------------------------------- & & & & &
+\\
+\hline
+cauchy & & & & &
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out5}
+\label{tab:my_label5}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.899701    &-0.009714   &-4.927604   &0.013856    &-0.008149   \\
+\hline
+D =       &38271.053130&0.142732    &30015.253592&0.307986    &0.152662    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out6}
+\label{tab:my_label6}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.844512   &-0.004553   &-6.426374   &0.001648    &0.007870    \\
+\hline
+D =       &1663.090280 &0.042251    &550349.336159&0.093719    &0.042292    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out7}
+\label{tab:my_label7}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.475302    &0.001242    &18.325690   &-0.004266   &0.002305    \\
+\hline
+D =       &178.376488  &0.026131    &1996325.674308&0.052982    &0.024151    \\
+\hline
+------------------------------------- & & & & &
+\\
+\hline
+laplace & & & & &
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out8}
+\label{tab:my_label8}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.001431    &0.006146    &0.000307    &-0.001240   &-0.003024   \\
+\hline
+D =       &0.053531    &0.033672    &0.424217    &0.050205    &0.030953    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out9}
+\label{tab:my_label9}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.008891   &-0.003148   &0.019806    &-0.002361   &0.003333    \\
+\hline
+D =       &0.015753    &0.009502    &0.407433    &0.015607    &0.010857    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out10}
+\label{tab:my_label10}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.001476   &-0.001714   &0.017273    &0.001879    &0.001884    \\
+\hline
+D =       &0.009809    &0.005924    &0.428472    &0.010128    &0.006141    \\
+\hline
+------------------------------------- & & & & &
+\\
+\hline
+uniform & & & & &
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out11}
+\label{tab:my_label11}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.002672    &-0.010210   &-0.000425   &0.016886    &-0.006024   \\
+\hline
+D =       &0.048714    &0.136940    &0.012372    &0.068931    &0.095201    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out12}
+\label{tab:my_label12}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.004400   &0.010762    &0.000296    &0.003209    &-0.005259   \\
+\hline
+D =       &0.016255    &0.048588    &0.001512    &0.023774    &0.034007    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out13}
+\label{tab:my_label13}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.004468    &0.000156    &0.001146    &-0.001466   &-0.007706   \\
+\hline
+D =       &0.010249    &0.030074    &0.000581    &0.014292    &0.018242    \\
+\hline
+------------------------------------- & & & & &
+\\
+\hline
+poisson & & & & &
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out14}
+\label{tab:my_label14}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &2.008650    &1.870000    &2.509500    &1.920375    &1.860000    \\
+\hline
+D =       &0.102498    &0.182600    &0.275160    &0.137644    &0.127640    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out15}
+\label{tab:my_label15}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &1.988967    &1.927500    &2.968500    &1.939500    &1.853567    \\
+\hline
+D =       &0.034121    &0.061994    &0.245258    &0.032590    &0.044723    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{out16}
+\label{tab:my_label16}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &1.999050    &1.972500    &3.154000    &1.973500    &1.838020    \\
+\hline
+D =       &0.020132    &0.024494    &0.244784    &0.012735    &0.028104    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 \section{Обсуждение}
 
-\subsection{Выводы}
-В результате работы были построены графики для трёх выборок разных мощностей для каждого из рассматриваемых распределений. Из графиков видно, что с увеличением мощности выборки, диаграмма всё менее отклоняется от теоретического значения. Это иллюстрирует факт того, что при стремлении можности выборки к бесконечности диаграмма выборки будет оцениваться теоретической кривой с любой интересующей нас точностью.
-\par
-Конечно, за счёт того что размеры выборок довольно малы, то могут наблюдаться некоторые "выбросы" в конкретных точках (особенно заметно на самых левых графиках для мощности 10). Это объясняется тем, что значения выборки генерируются случайным образом и данных на такой мощности для построения теоретических оценок оказывается недостаточно.
-
-\addcontentsline{toc}{section}{6 \: Литература}
- 
+\addcontentsline{toc}{section}{6 \: Литература} 
 \begin{thebibliography}{}
     \bibitem{wiki} \url{https://www.wikipedia.org/}
 \end{thebibliography}
 
+\section{Выводы}
+В результате работы были построены графики для трёх выборок разных мощностей для каждого из рассматриваемых распределений. Из графиков видно, что с увеличением мощности выборки, диаграмма всё менее отклоняется от теоретического значения. Это иллюстрирует факт того, что при стремлении можности выборки к бесконечности диаграмма выборки будет оцениваться теоретической кривой с любой интересующей нас точностью.
+\par
+Конечно, за счёт того что размеры выборок довольно малы, то могут наблюдаться некоторые "выбросы" в конкретных точках (особенно заметно на самых левых графиках для мощности 10). Это объясняется тем, что значения выборки генерируются случайным образом и данных на такой мощности для построения теоретических оценок оказывается недостаточно.
+
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics}
+
 \end{document}
+
