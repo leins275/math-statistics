@@ -1,67 +1,150 @@
-import matplotlib.pyplot as plt
-import scipy.stats as st
-from math import sqrt
-import numpy as np
-
-size = [10, 50, 100]
-
-'''
-# --------- Нормальноре распределенеие ------------
-name = 'Нормальное распределенеие'
-distr = st.norm(loc=0, scale=1)
-# -------------------------------------------------
-'''
-'''
-# --------- Распределение Коши ------------
-name = 'Распределение Коши'
-distr = st.cauchy()
-# -----------------------------------------
-'''
-'''
-# --------- Распределение Лапласа ------------
-name = 'Распределение Лапласа'
-distr = st.laplace(loc=0, scale=sqrt(2))
-# --------------------------------------------
-'''
-'''
-# --------- Равномерное распределение ------------
-name = 'Равномерное распределение'
-distr = st.uniform(loc=-sqrt(3), scale=sqrt(3))
-# -------------------------------------------------
-'''
-# GRAPHICS
-'''
-plt.figure(1, figsize=(9, 3))
-for i in range(3):
-    n_plot = 131 + i
-    plt.subplot(n_plot)
-    x = np.linspace(distr.ppf(0.01), distr.ppf(0.99), size[i])
-    plt.plot(x, distr.pdf(x), 'r-', lw=3, label='theory')
-    r = distr.rvs(size=size[i])
-    plt.hist(r, density=True, histtype='stepfilled', alpha=0.5, label='range = ' + str(size[i]))
-    plt.legend(loc='best')
-    plt.grid(True)
-plt.suptitle(name)
-plt.show()
-'''
-
-# --------- Распределение Пуассона ------------
-name = 'Распределение Пуассона'
-mu = 0.6
-distr = st.poisson
-# ---------------------------------------------
+import numpy
+import sys
 
 
-plt.figure(1, figsize=(9, 3))
-for i in range(3):
-    n_plot = 131 + i
-    plt.subplot(n_plot)
-    x = np.arange(distr.ppf(0.01, mu), distr.ppf(0.99, mu))
-    plt.plot(x, distr.pmf(x, mu), 'bo', ms=8, label='theory')
-    plt.vlines(x, 0, distr.pmf(x, mu), colors='b', lw=5, alpha=0.5)
-    r = distr.rvs(mu, size=size[i])
-    plt.hist(r, density=True, histtype='stepfilled', alpha=0.5, label='range = ' + str(size[i]))
-    plt.legend(loc='best')
-    plt.grid(True)
-plt.suptitle(name)
-plt.show()
+POISSON_PARAM = 2
+UNIFORM_LEFT = -numpy.sqrt(3)
+UNIFORM_RIGHT = numpy.sqrt(3)
+LAPLAS_COEF = numpy.sqrt(2)
+selection = [20, 60, 100]
+selection = numpy.sort(selection)
+
+
+def standart_normal(x):
+    return (1 / numpy.sqrt(2*numpy.pi)) * numpy.exp(- x * x / 2)
+
+
+def standart_cauchy(x):
+    return 1 / (numpy.pi * (1 + x*x))
+
+
+def laplace(x):
+    return 1 / LAPLAS_COEF * numpy.exp(-LAPLAS_COEF * numpy.abs(x))
+
+
+def uniform(x):
+    flag2 = x <= UNIFORM_RIGHT
+    flag1 = x >= UNIFORM_LEFT
+    return 1 / (UNIFORM_RIGHT - UNIFORM_LEFT) * flag1 * flag2
+
+
+def poisson(x):
+    k = POISSON_PARAM
+    return (numpy.power(x, k) / numpy.math.factorial(k)) * numpy.exp(-x)
+
+
+func_dict = {
+    'normal': standart_normal,
+    'cauchy': standart_cauchy,
+    'laplace': laplace,
+    'uniform': uniform,
+    'poisson': poisson
+}
+
+
+def generate_laplace(x):
+    return numpy.random.laplace(0, 1/LAPLAS_COEF, x)
+
+
+def generate_uniform(x):
+    return numpy.random.uniform(UNIFORM_LEFT, UNIFORM_RIGHT, x)
+
+
+def generate_poisson(x):
+    return numpy.random.poisson(POISSON_PARAM, x)
+
+
+generate_dict = {
+    'normal': numpy.random.standard_normal,
+    'cauchy': numpy.random.standard_cauchy,
+    'laplace': generate_laplace,
+    'uniform': generate_uniform,
+    'poisson': generate_poisson
+}
+
+
+def Zr(x):
+    return (numpy.amin(x) + numpy.amax(x))/2
+
+
+def Zq(x):
+    return (numpy.quantile(x, 1/4) + numpy.quantile(x, 3/4)) / 2
+
+
+def Ztr(x):
+    length = x.size
+    r = int(length / 4)
+    sum = 0
+    for i in range(r, length - r):
+        sum += x[i]
+    return sum/(length - 2 * r)
+
+
+pos_characteristic_dict = {
+    'average': numpy.mean,
+    'med': numpy.median,
+    'Zr': Zr,
+    'Zq': Zq,
+    'Ztr r = n/4': Ztr
+}
+
+pos_char_name = [
+    'average',
+    'med',
+    'Zr',
+    'Zq',
+    'Ztr r = n/4'
+]
+
+
+def E(z):
+    return numpy.mean(z)
+
+
+def D(z):
+    return numpy.var(z)
+
+
+def research(dist_type):
+    print('-------------------------------------')
+    print(dist_type)
+    for num in selection:
+        #print(num)
+        print_table = {
+            'E': [],
+            'D': []
+        }
+        for pos_name in pos_char_name:
+            z = []
+            for i in range(0, 1000):
+                arr = numpy.sort(generate_dict[dist_type](num))
+                z.append(pos_characteristic_dict[pos_name](arr))
+            print_table['E'].append(E(z))
+            print_table['D'].append(D(z))
+
+        print()
+        print("%-10s;" %('n = %i' %num), end="")
+        for pos_name in pos_char_name:
+            print("%-12s;" % pos_name, end="")
+
+        print()
+        print("%-10s;" % ('E ='), end="")
+        for e in print_table['E']:
+            print("%-12f;" % e, end="")
+
+        print()
+        print("%-10s;" %('D ='), end="")
+        for d in print_table['D']:
+            print("%-12f;" % d, end="")
+        print()
+
+
+if __name__ == "__main__":
+    f = open('out.csv', 'w')
+    sys.stdout = f
+
+    research('normal')
+    research('cauchy')
+    research('laplace')
+    research('uniform')
+    research('poisson')
