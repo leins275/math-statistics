@@ -109,4 +109,4 @@ venv.bak/
 # tex
 lab*/build/*
 lab*/*.csv
-CONVERTER_RESILT.tex
+CONVERTER_RESULT.tex

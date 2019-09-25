@@ -1,4 +1,6 @@
 import numpy
+import seaborn as sns
+import matplotlib.pyplot as mplot
 import sys
 
 
@@ -6,9 +8,8 @@ POISSON_PARAM = 2
 UNIFORM_LEFT = -numpy.sqrt(3)
 UNIFORM_RIGHT = numpy.sqrt(3)
 LAPLAS_COEF = numpy.sqrt(2)
-selection = [20, 60, 100]
+selection = [20, 100]
 selection = numpy.sort(selection)
-
 
 def standart_normal(x):
     return (1 / numpy.sqrt(2*numpy.pi)) * numpy.exp(- x * x / 2)
@@ -19,7 +20,7 @@ def standart_cauchy(x):
 
 
 def laplace(x):
-    return 1 / LAPLAS_COEF * numpy.exp(-LAPLAS_COEF * numpy.abs(x))
+    return 1 / LAPLAS_COEF * numpy.exp (-LAPLAS_COEF * numpy.abs(x))
 
 
 def uniform(x):
@@ -73,11 +74,26 @@ def Zq(x):
 
 def Ztr(x):
     length = x.size
-    r = int(length / 4)
+    r = (int)(length / 4)
     sum = 0
     for i in range(r, length - r):
         sum += x[i]
     return sum/(length - 2 * r)
+
+
+def IQR(x):
+    return numpy.abs(numpy.quantile(x, 1 / 4) - numpy.quantile(x, 3 / 4))
+
+
+def ejection(x):
+    length = x.size
+    count = 0
+    left = numpy.quantile(x, 1 / 4) - 1.5 * IQR(x)
+    right = numpy.quantile(x, 3 / 4) + 1.5 * IQR(x)
+    for i in range(0, length):
+        if(x[i] < left or x[i] > right):
+            count += 1
+    return count / length
 
 
 pos_characteristic_dict = {
@@ -105,45 +121,47 @@ def D(z):
     return numpy.var(z)
 
 
+f = open('out1.csv', 'w')
+std = sys.stdout
+sys.stdout = f
+
 def research(dist_type):
+   # print('-------------------------------------')
     print()
     print(dist_type)
+
+    data = []
+
     for num in selection:
-        print_table = {
-            'E': [],
-            'D': []
-        }
-        for pos_name in pos_char_name:
-            z = []
-            for i in range(0, 1000):
-                arr = numpy.sort(generate_dict[dist_type](num))
-                z.append(pos_characteristic_dict[pos_name](arr))
-            print_table['E'].append(E(z))
-            print_table['D'].append(D(z))
+        eject = []
+        arr = numpy.sort(generate_dict[dist_type](num))
+        data.append(arr)
 
-        #print()
-        print("%-10s;" %('n = %i' %num), end="")
-        for pos_name in pos_char_name:
-            print("%-12s;" % pos_name, end="")
+        for i in range(0, 1000):
+            arr = numpy.sort(generate_dict[dist_type](num))
+            eject.append(ejection(arr))
 
-        print()
-        print("%-10s;" % ('E ='), end="")
-        for e in print_table['E']:
-            print("%-12f;" % e, end="")
-
-        print()
-        print("%-10s;" %('D ='), end="")
-        for d in print_table['D']:
-            print("%-12f;" % d, end="")
+        print("%-10s;" % ('n = %i' % num), end="")
+        print("%-12f;" % E(eject), end="")
         print()
 
+    mplot.figure(dist_type)
+    mplot.title(dist_type)
+    sns.set(style="whitegrid")
+    ax = sns.boxplot(data=data, orient='h')
+    mplot.yticks(numpy.arange(2), ('20', '100'))
+    mplot.show()
 
-if __name__ == "__main__":
-    f = open('out.csv', 'w')
-    sys.stdout = f
 
-    research('normal')
-    research('cauchy')
-    research('laplace')
-    research('uniform')
-    research('poisson')
+
+
+research('normal')
+research('cauchy')
+research('laplace')
+research('uniform')
+research('poisson')
+
+
+f.close()
+sys.stdout = std
+print("Done")

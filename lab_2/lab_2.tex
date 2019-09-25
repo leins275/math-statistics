@@ -11,8 +11,6 @@
 \usepackage{verbatim}
 \usepackage{hyperref}
 \usepackage{amssymb,latexsym}  % Standard packages
-
-
 \usepackage{MnSymbol}
 \usepackage{mathrsfs}
 \usepackage{amsthm}
@@ -20,11 +18,66 @@
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{float}
 
+%******************************************************************
+\usepackage{mathrsfs}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{} 
+\rfoot{\normalsize\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\RomanNumeralCaps}[1]
+    {\MakeUppercase{\romannumeral #1}}
+\usepackage{amssymb,latexsym}  % Standard packages
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amsthm}
+\usepackage{indentfirst}
+\usepackage{graphicx}%,vmargin}
+\usepackage{graphicx}
+\graphicspath{{pictures/}} 
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{float}
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+\usepackage{url}
+\urldef\myurl\url{foo%.com}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}% -- настройка картинок
 \usepackage{epigraph} %%% to make inspirational quotes.
 \usepackage[all]{xy} %for XyPic'a
 \usepackage{color} 
 \usepackage{amscd} %для коммутативных диграмм
-\usepackage{listings}
+%******************************************************************
 
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
@@ -133,79 +186,123 @@ Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
 \section{Результаты}
 
 \begin{table}[H]
-\caption{out1}
+\caption{normal}
 \label{tab:my_label1}
 \begin{center}
 \vspace{5mm}
-\begin{tabular}{|c|}
-\hline
--------------------------------------\\
-\hline
-normal\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out2}
-\label{tab:my_label2}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
 n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
 \hline
-E =       &-0.013333   &0.009063    &-0.005522   &-0.012054   &-0.002018   \\
+E =       &0.003889    &-0.001204   &0.004247    &-0.002884   &0.014986    \\
 \hline
-D =       &0.046945    &0.076766    &0.142835    &0.056061    &0.060165    \\
+D =       &0.050065    &0.069428    &0.135281    &0.056127    &0.060241    \\
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.005639    &-0.001905   &0.006317    &0.003647    &-0.005183   \\
+\hline
+D =       &0.017071    &0.024751    &0.109666    &0.020065    &0.019645    \\
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.000990   &-0.008915   &-0.003211   &-0.007140   &0.000411    \\
+\hline
+D =       &0.010270    &0.015038    &0.091469    &0.012224    &0.011148    \\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
 \begin{table}[H]
-\caption{out3}
+\caption{cauchy}
+\label{tab:my_label2}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.574031    &-0.009207   &4.314604    &0.009490    &0.024569    \\
+\hline
+D =       &380.673006  &0.127344    &24864.038520&0.290641    &0.156087    \\
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &16.889466   &0.007131    &-14.877379  &-0.006227   &-0.007330   \\
+\hline
+D =       &218415.033090&0.039049    &268917.253813&0.087454    &0.042852    \\
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-1.147046   &-0.000622   &-23.949387  &-0.002369   &-0.008024   \\
+\hline
+D =       &604.646590  &0.024850    &1995730.222185&0.051894    &0.023969    \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{laplace}
 \label{tab:my_label3}
 \begin{center}
 \vspace{5mm}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.001627   &-0.000952   &0.032669    &0.003535    &0.005730    \\
+\hline
+D =       &0.045803    &0.031761    &0.402496    &0.046401    &0.033325    \\
+\hline
 n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
 \hline
-E =       &0.001963    &-0.003607   &-0.010240   &-0.004640   &-0.001696   \\
+E =       &-0.006856   &-0.002807   &0.050344    &-0.000216   &-0.000712   \\
 \hline
-D =       &0.016037    &0.025284    &0.107303    &0.020871    &0.020296    \\
+D =       &0.016743    &0.009838    &0.431677    &0.017332    &0.009962    \\
+\hline
+n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.000800   &0.001184    &-0.024119   &-0.002611   &-0.000909   \\
+\hline
+D =       &0.009861    &0.005529    &0.409545    &0.009740    &0.006101    \\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
 \begin{table}[H]
-\caption{out4}
+\caption{uniform}
 \label{tab:my_label4}
 \begin{center}
 \vspace{5mm}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
+n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &-0.004788   &0.011925    &-0.000665   &-0.003460   &-0.002870   \\
+\hline
+D =       &0.049107    &0.134658    &0.013457    &0.071206    &0.097207    \\
+\hline
+n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+\hline
+E =       &0.001583    &-0.004005   &-0.001657   &-0.005769   &-0.003667   \\
+\hline
+D =       &0.016670    &0.045087    &0.001706    &0.024632    &0.033966    \\
+\hline
 n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
 \hline
-E =       &-0.006258   &0.000041    &0.004206    &-0.000581   &-0.000962   \\
+E =       &0.000676    &0.004193    &-0.000025   &-0.005675   &0.004133    \\
 \hline
-D =       &0.009937    &0.015242    &0.088866    &0.012238    &0.012099    \\
-\hline
-------------------------------------- & & & & &
-\\
-\hline
-cauchy & & & & &
-\\
+D =       &0.010255    &0.028780    &0.000621    &0.015457    &0.019007    \\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
 \begin{table}[H]
-\caption{out5}
+\caption{poisson}
 \label{tab:my_label5}
 \begin{center}
 \vspace{5mm}
@@ -213,214 +310,21 @@ cauchy & & & & &
 \hline
 n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
 \hline
-E =       &0.899701    &-0.009714   &-4.927604   &0.013856    &-0.008149   \\
+E =       &2.016900    &1.868000    &2.531500    &1.899250    &1.865800    \\
 \hline
-D =       &38271.053130&0.142732    &30015.253592&0.307986    &0.152662    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out6}
-\label{tab:my_label6}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
+D =       &0.099684    &0.179576    &0.290758    &0.133599    &0.115410    \\
 \hline
 n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
 \hline
-E =       &-0.844512   &-0.004553   &-6.426374   &0.001648    &0.007870    \\
+E =       &2.005733    &1.932500    &2.945000    &1.936875    &1.843400    \\
 \hline
-D =       &1663.090280 &0.042251    &550349.336159&0.093719    &0.042292    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out7}
-\label{tab:my_label7}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
+D =       &0.033034    &0.054194    &0.233475    &0.034812    &0.041836    \\
 \hline
 n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
 \hline
-E =       &0.475302    &0.001242    &18.325690   &-0.004266   &0.002305    \\
+E =       &1.997070    &1.961500    &3.128000    &1.963625    &1.844780    \\
 \hline
-D =       &178.376488  &0.026131    &1996325.674308&0.052982    &0.024151    \\
-\hline
-------------------------------------- & & & & &
-\\
-\hline
-laplace & & & & &
-\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out8}
-\label{tab:my_label8}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &0.001431    &0.006146    &0.000307    &-0.001240   &-0.003024   \\
-\hline
-D =       &0.053531    &0.033672    &0.424217    &0.050205    &0.030953    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out9}
-\label{tab:my_label9}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.008891   &-0.003148   &0.019806    &-0.002361   &0.003333    \\
-\hline
-D =       &0.015753    &0.009502    &0.407433    &0.015607    &0.010857    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out10}
-\label{tab:my_label10}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.001476   &-0.001714   &0.017273    &0.001879    &0.001884    \\
-\hline
-D =       &0.009809    &0.005924    &0.428472    &0.010128    &0.006141    \\
-\hline
-------------------------------------- & & & & &
-\\
-\hline
-uniform & & & & &
-\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out11}
-\label{tab:my_label11}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &0.002672    &-0.010210   &-0.000425   &0.016886    &-0.006024   \\
-\hline
-D =       &0.048714    &0.136940    &0.012372    &0.068931    &0.095201    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out12}
-\label{tab:my_label12}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.004400   &0.010762    &0.000296    &0.003209    &-0.005259   \\
-\hline
-D =       &0.016255    &0.048588    &0.001512    &0.023774    &0.034007    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out13}
-\label{tab:my_label13}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &0.004468    &0.000156    &0.001146    &-0.001466   &-0.007706   \\
-\hline
-D =       &0.010249    &0.030074    &0.000581    &0.014292    &0.018242    \\
-\hline
-------------------------------------- & & & & &
-\\
-\hline
-poisson & & & & &
-\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out14}
-\label{tab:my_label14}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &2.008650    &1.870000    &2.509500    &1.920375    &1.860000    \\
-\hline
-D =       &0.102498    &0.182600    &0.275160    &0.137644    &0.127640    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out15}
-\label{tab:my_label15}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &1.988967    &1.927500    &2.968500    &1.939500    &1.853567    \\
-\hline
-D =       &0.034121    &0.061994    &0.245258    &0.032590    &0.044723    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{table}[H]
-\caption{out16}
-\label{tab:my_label16}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &1.999050    &1.972500    &3.154000    &1.973500    &1.838020    \\
-\hline
-D =       &0.020132    &0.024494    &0.244784    &0.012735    &0.028104    \\
+D =       &0.020288    &0.033268    &0.217616    &0.017067    &0.027989    \\
 \hline
 \end{tabular}
 \end{center}
