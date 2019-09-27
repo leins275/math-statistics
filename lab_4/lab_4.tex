@@ -10,11 +10,19 @@
 \usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
 \usepackage{verbatim}
 \usepackage{hyperref}
+\usepackage{amssymb,latexsym}  % Standard packages
+\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{indentfirst}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{float}
+
+%******************************************************************
+%******************************************************************
 
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
-
-\addto\captionsrussian{\def\refname{6 \: Литература}}
 
 \begin{document}
 
@@ -27,10 +35,9 @@
 
 	\vfill ~
 	\textbf{
-		\\ \large ЛАБОРАТОРНАЯ РАБОТА №1
+		\\ \large ЛАБОРАТОРНАЯ РАБОТА №4
 		\\	\normalsize	
-			Сравнение распределений выборок для различных 
-		\\	функций распределения с теоретическими оценками
+			Эмпирические функции и ядерные оценки
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
@@ -51,7 +58,11 @@
 %%%
 % \settocdepth{chapter}
 \tableofcontents
+\newpage
 \listoffigures
+\newpage
+% \listoftables
+% \newpage
 \pagebreak
 
 % \setcounter{chapter}{1}
@@ -60,102 +71,174 @@
 % Text
 %%%
 \section{Постановка задачи}
-Сравнить графики распределения выборок случайных чисел, сгенерированных при помощи различных функций распределения, с теоретическими кривыми распределения для выборок мощностями 10, 50, 100.
+
+Для, приведённых ниже, пяти распределений сгенерировать выборки объёмом $20,\; 60,\; 100,$ для каждой выборки построить эмпирические функции распределения и ядерные оценки плотности распределения на отрезке $[-4, 4].$
+
+Распределения \cite{distr_formulas}:
+\begin{enumerate}
+\item Стандартное нормальное распределение
+\item Стандартное распределение Коши
+\item Распределение Лапласа с коэффициентом масштаба $\sqrt{2}$ и нулевым коэффициентом сдвига.
+\item Равномерное распределение на отрезке $\left[-\sqrt{3}, \sqrt{3}\right]$
+\item Распределение Пуассона со значением матожидания равным двум.
+\end{enumerate}
 
 \section{Теория}
-Рассмотрим использованные распределения подробней. Общий вид распределений можно проверить, например, тут: \cite{wiki}
 
-\subsection{Нормальное распределение}
+Эмпирическая функция распределения \cite{emp}, построенная по выборке $X = \left(X_1,\ldots, X_n\right)$ есть случайная функция $F_n(y),$ определённая на $\mathbb{R}:$
+\begin{equation}
+F_n(y) = \sum\limits_{i=1}^n I\left(X_i < y\right) \;\;\text{где}\; I\left(X_i < y\right) = \begin{cases} 
+1, & X_i < y\\
+0, & \text{иначе}
+\end{cases}\hfill\label{eqn:emp}
+\end{equation}
+
+$X = \left(X_1,\ldots, X_n\right)$ есть одномерная выборка одинаково распределённых элементов, с плотностью распределения $f.$
+
+Ядерная оценка плотности \cite{art}:
+\begin{equation}
+    f_h(x) = \frac{1}{nh}\sum\limits_{i=1}^nK\left(\frac{x-x_i}{h}\right)\label{eqn:art}
+\end{equation}
+где $K$ является ядром, а $h>0$ является сглаживающим параметром, и называется шириной полосы.
+
+В данной работе в качестве ядра была выбрана плотность вероятности стандартного нормального распределения \cite{link:pdf}:
 
 \begin{equation}
-f(x)= \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
+    K(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
 \end{equation}
-
-\subsection{Распределение Коши}
-
-\begin{equation}
-f(x)= \frac{1}{\pi}\bigg( \frac{1}{x^2 + 1}\ \bigg)
-\end{equation}
-
-\subsection{Распределение Лапласа}
-
-\begin{equation} 
-f(x)= \frac{1}{\sqrt{2}}e^{-\sqrt{2}x}
-\end{equation}
-
-\subsection{Равномерное распределение}
-
-\begin{equation}
-      f(x) = 
-      \begin{cases}
-      \frac{1}{2\sqrt{3}}, \quad |x| \leq \sqrt{3} \\
-      0, \qquad |x| > \sqrt{3}
-      \end{cases}
-\end{equation}
-
-\subsection{Распределение Пуассона}
-
-\begin{equation}
-P(7) = \frac{7^k}{k!}e^{-7}
-\end{equation}
-
-\pagebreak
 
 \section{Реализация}
-Выполнено средствами \textit{python} c применением библиотек \textit{numpy, scipy} and \textit{matplotlib}
+Для генерации выборки был использован $Python\;3.7$: модуль $random$ библиотеки $numpy$ \cite{numpy} для генерации случайных чисел с различными распределениями. 
+
+Обработка функций распределений была сделана с помощью модуля $scipy$ \cite{skp}.
+
 
 \section{Результаты}
 
-\begin{figure}[h!]
+\subsection{Эмпирические функции распределения}
 \begin{center}
-\includegraphics[width=\textwidth]{normal.png} 
-\caption{Нормальное распределение}
-\end{center}
+
+\begin{figure}[H]
+\caption{Эмпирическая функция для нормального стандартного распределения}
+\includegraphics[width=\textwidth]{empiric/normal.png}
 \end{figure}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{caushi.png}
-\caption{Распределение Коши}
-\end{center}
+\begin{figure}[H]
+\caption{Эмпирическая функция для стандартного распределения Лапласа }
+\includegraphics[width=\textwidth]{empiric/laplace.png} 
 \end{figure}
 
-\pagebreak
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{laplace.png}
-\caption{Распределение Лапласа}
-\end{center}
+\begin{figure}[H]
+\caption{Эмпирическая функция для стандартного распределения Коши }
+\includegraphics[width=\textwidth]{empiric/cauchy.png} 
 \end{figure}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{uniform.png}
-\caption{Равномерное распределение}
-\end{center}
+\begin{figure}[H]
+\caption{Эмпирическая функция для распределения Пуассона }
+\includegraphics[width=\textwidth]{empiric/poisson.png} 
 \end{figure}
 
-\pagebreak
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{poisson.png}
-\caption{Распределение Пуассона}
+\begin{figure}[H]
+ \caption{Эмпирическая функция для равномерного распределения }
+\includegraphics[width=\textwidth]{empiric/uniform.png}
+\end{figure}
 \end{center}
+\subsection{Ядерные функции}
+
+\begin{center}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для нормального распределения, n = 20}
+\includegraphics[width=\textwidth]{kernel/d_normal20.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для нормального распределения, n = 60}
+\includegraphics[width=\textwidth]{kernel/d_normal60.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для нормального распределения, n = 100}
+\includegraphics[width=\textwidth]{kernel/d_normal100.png}
 \end{figure}
 
-\section{Обсуждение}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Лапласа, n = 20}
+\includegraphics[width=\textwidth]{kernel/d_laplace20.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Лапласа, n = 60}
+\includegraphics[width=\textwidth]{kernel/d_laplace60.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Лапласа, n = 100}
+\includegraphics[width=\textwidth]{kernel/d_laplace100.png}
+\end{figure}
 
-\subsection{Выводы}
-В результате работы были построены графики для трёх выборок разных мощностей для каждого из рассматриваемых распределений. Из графиков видно, что с увеличением мощности выборки, диаграмма всё менее отклоняется от теоретического значения. Это иллюстрирует факт того, что при стремлении можности выборки к бесконечности диаграмма выборки будет оцениваться теоретической кривой с любой интересующей нас точностью.
-\par
-Конечно, за счёт того что размеры выборок довольно малы, то могут наблюдаться некоторые "выбросы" в конкретных точках (особенно заметно на самых левых графиках для мощности 10). Это объясняется тем, что значения выборки генерируются случайным образом и данных на такой мощности для построения теоретических оценок оказывается недостаточно.
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Коши, n = 20}
+\includegraphics[width=\textwidth]{kernel/d_cauchy20.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Коши, n = 60}
+\includegraphics[width=\textwidth]{kernel/d_cauchy60.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Коши, n = 100}
+\includegraphics[width=\textwidth]{kernel/d_cauchy100.png}
+\end{figure}
 
-\addcontentsline{toc}{section}{6 \: Литература}
- 
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Пуассона, n = 20}
+\includegraphics[width=\textwidth]{kernel/d_poisson20.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Пуассона, n = 60}
+\includegraphics[width=\textwidth]{kernel/d_poisson60.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для распределения Пуассона, n = 100}
+\includegraphics[width=\textwidth]{kernel/d_poisson100.png}
+\end{figure}
+
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для равномерного распределения, n = 20}
+\includegraphics[width=\textwidth]{kernel/d_uniform20.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для равномерного распределения, n = 60}
+\includegraphics[width=\textwidth]{kernel/d_uniform60.png}
+\end{figure}
+    \begin{figure}[H]
+ \caption{Ядерная функция плотности для равномерного распределения, n = 100}
+\includegraphics[width=\textwidth]{kernel/d_uniform100.png}
+\end{figure}
+\end{center}
+
+
+\section{Выводы}
+Эмпирическая функция лучше приближает эталонную функцию на больших выборках.
+
+Наилучшее приближение функции распределения ядерной функции получено при наибольшей ширине окна. При фиксированной ширине окна точнее приблизить функцию распределения позволяет увеличение выборки.
+
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_4}
+
 \begin{thebibliography}{}
-    \bibitem{wiki} \url{https://www.wikipedia.org/}
+    \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
+    
+    \bibitem{average}  
+    Выборочное среднее  -  https://en.wikipedia.org/wiki/Sample\_mean\_and\_covariance
+    
+    \bibitem{med}  
+    Выборочная медиана  -  http://femto.com.ua/articles/part\_1/2194.html
+    
+    \bibitem{mean_extr}  
+    Полусумма экстремальных значений  -  https://studopedia.info/8-56888.html
+    
+    \bibitem{quartiles}  
+    Квартили  -  https://studfiles.net/preview/2438125/page:13/
+    
+    \bibitem{cut_mean}  Усечённое среднее  -  https://ole-olesko.livejournal.com/15773.html
 \end{thebibliography}
 
 \end{document}
+

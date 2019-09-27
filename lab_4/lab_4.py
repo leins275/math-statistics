@@ -126,7 +126,7 @@ def kernel_function(sample, h, x):
 
 def draw_empirical(sample, func, sector):
     if sector == 3:
-        plt.title('Empirical distribution function for 20, 60, 100 elements.Distribution:' + func)
+        plt.title('Distribution:' + func + ' Empirical distribution function for 20, 60, 100 elements.')
     plt.subplot(130+sector)
     if func == 'poisson':
         xx = np.linspace(0, 30, 100)
@@ -137,7 +137,8 @@ def draw_empirical(sample, func, sector):
 
 
 def research_empirical(distribution_type):
-    plt.figure("distribution " + distribution_type)
+    fig_name = "distribution " + distribution_type
+    plt.figure(fig_name)
     num = 20
     sector = 1
     for i in range(3):
@@ -145,12 +146,14 @@ def research_empirical(distribution_type):
         draw_empirical(sample, distribution_type, sector)
         num += 40
         sector += 1
-    plt.show()
+        plt.savefig(fig_name + '.png')
+    # plt.show()
 
 
 def draw_kernel(sample, func, sector, h):
     if sector == 3:
-        plt.title('n = ' + str(len(sample)) + '. Kernel density estimation for h = [0.3, 0.6, 1.2]. Distribution: ' + func)
+        plt.title('Distribution: ' + func + ' n = ' + str(len(sample)) +
+                  '. Kernel density estimation for h = [0.3, 0.6, 1.2].')
     plt.subplot(130+sector)
     if func == 'poisson':
         xx = np.linspace(0, 20, 100)
@@ -166,7 +169,8 @@ def research_kernel(distribution_type):
     h = 0.3
     for i in range(3):
         sample = generate_dict[distribution_type](num)
-        plt.figure("distribution " + distribution_type + ", sample size: " + str(len(sample)))
+        fig_name = "distribution " + distribution_type + ", sample size: " + str(len(sample))
+        plt.figure(fig_name)
         for j in range(3):
             draw_kernel(sample, distribution_type, sector, h)
             sector += 1
@@ -174,16 +178,19 @@ def research_kernel(distribution_type):
         sector = 1
         num += 40
         h = 0.3
-    plt.show()
+        plt.savefig(fig_name + '.png')
+    #plt.show()
 
-#research_empirical('normal')
-#research_empirical('laplace')
-#research_empirical('uniform')
-#research_empirical('cauchy')
-#research_empirical('poisson')
 
-#research_kernel('normal')
-#research_kernel('laplace')
-#research_kernel('uniform')
-#research_kernel('cauchy')
-research_kernel('poisson')
+if __name__ == '__main__':
+    research_empirical('normal')
+    research_empirical('laplace')
+    research_empirical('uniform')
+    research_empirical('cauchy')
+    research_empirical('poisson')
+
+    # research_kernel('normal')
+    # research_kernel('laplace')
+    # research_kernel('uniform')
+    # research_kernel('cauchy')
+    # research_kernel('poisson')
