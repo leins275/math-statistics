@@ -139,11 +139,13 @@ def draw(dist_name, p):
 
     plt.show()
 
-f = open('out.csv', 'w')
-sys.stdout = f
 
-for p in cor:
-    draw("Normal", p)
-    print()
+if __name__ == '__main__':
+    f = open('out.csv', 'w')
+    sys.stdout = f
 
-draw("NormalMix", 0.9)
+    for p in cor:
+        draw("Normal", p)
+        print()
+
+    draw("NormalMix", 0.9)

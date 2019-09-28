@@ -19,7 +19,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lab_5/pic" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -269,6 +269,9 @@
       <workItem from="1569589463452" duration="4003000" />
       <workItem from="1569664003024" duration="33000" />
       <workItem from="1569667829066" duration="298000" />
+      <workItem from="1569670807641" duration="98000" />
+      <workItem from="1569670941646" duration="10000" />
+      <workItem from="1569671227451" duration="5449000" />
     </task>
     <task id="LOCAL-00001" summary="Updated lab_2.py">
       <created>1569434966218</created>
@@ -385,7 +388,7 @@
     <SUITE FILE_PATH="coverage/math_statistics$lab_7.coverage" NAME="lab_7 Coverage Results" MODIFIED="1569441968483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_7" />
     <SUITE FILE_PATH="coverage/math_statistics$lab_2.coverage" NAME="lab_2 Coverage Results" MODIFIED="1569444604482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_2" />
     <SUITE FILE_PATH="coverage/math_statistics$lab_8.coverage" NAME="lab_8 Coverage Results" MODIFIED="1569441990836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_8" />
-    <SUITE FILE_PATH="coverage/math_statistics$lab_5.coverage" NAME="lab_5 Coverage Results" MODIFIED="1569594913908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_5" />
+    <SUITE FILE_PATH="coverage/math_statistics$lab_5.coverage" NAME="lab_5 Coverage Results" MODIFIED="1569673144978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_5" />
     <SUITE FILE_PATH="coverage/math_statistics$converter.coverage" NAME="converter Coverage Results" MODIFIED="1569578325868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
