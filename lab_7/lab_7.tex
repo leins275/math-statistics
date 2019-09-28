@@ -35,9 +35,7 @@
 
 	\vfill ~
 	\textbf{
-		\\ \large ЛАБОРАТОРНАЯ РАБОТА №2
-		\\	\normalsize	
-			Характеристики положения выборки
+		\\ \large ЛАБОРАТОРНАЯ РАБОТА №7
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
@@ -71,244 +69,121 @@
 % Text
 %%%
 \section{Постановка задачи}
-Любыми средствами сгенерировать выборки размеров $20,$ $60,$ $100$ элементов для $5$ти распределений. Для каждой выборки вычислить $\overline{x},\; med\; x,\; Z_R,\; Z_Q,\; Z_{tr},$ при $r = \frac{n}{4}.$
 
-Распределения:
-\begin{enumerate}
-\item Стандартное нормальное распределение
-\item Стандартное распределение Коши
-\item Распределение Лапласа с коэффициентом масштаба $\sqrt{2}$ и нулевым коэффициентом сдвига.
-\item Равномерное распределение на отрезке $\left[-\sqrt{3}, \sqrt{3}\right]$
-\item Распределение Пуассона со значением матожидания равным двум.
-\end{enumerate}
+Необходимо сгенерировать выборку объемом $100$ элементов для нормального распределения $N(x;0,1).$ По сгенерированной выборке оценить параметры $\mu$ и $\sigma$ нормального закона методом максимального правдоподобия. В качестве основной гипотезы $H_0$ будем считать, что сгенерированное распределение имеет вид $N(x,\overset{\wedge}{\mu},\overset{\wedge}{\sigma} ).$ Проверить основную гипотезу, используя критерий согласия $\chi$. В качестве ровня значимости взять $\alpha=0,05.$ Привести таблицу вычислений $\chi^2.$
+
 
 \section{Теория}
-
-\subsection{Выборочное среднее \cite{average}}
-
+\subsection{Метод максимального правдоподобия}
+Метод максимального правдоподобия $\--$ метод оценивания неизвестного параметра путём максимимзации функции правдоподобия.
 \begin{equation}
-\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i \hfill \label{eqn:average}
+    \overset{\wedge}{\theta}_{\text{МП}}=argmax \mathbf{L}(x_1,x_2,\ldots,x_n,\theta)
 \end{equation}
 
-\subsection{Выборочная медиана \cite{med}}
-
+Где $\mathbf{L}$ это функция правдоподобия, которая представляет собой совместную плотность вероятности независимых случайных величин $X_1,x_2,\ldots,x_n$ и является функцией неизвестного параметра $\theta$
 \begin{equation}
-med\; x = \begin{cases}
-x_{k+1}, & n = 2k+1\\
-\frac{1}{2}\left(x_k+x_{k+1}\right), & n = 2k
-\end{cases} \hfill  \label{eqn:med}
+    \mathbf{L} = f(x_1,\theta)\cdot f(x_2,\theta)\cdot\cdots\cdot f(x_n,\theta)
 \end{equation}
+Оценкой максимального правдоподобия будем называть такое значение $\overset{\wedge}{\theta}_{\text{МП}}$ из множества допустимых значений параметра $\theta,$ для которого функция правдоподобия принимает максимальное значение при заданных $x_1,x_2,\ldots,x_n.$
 
-\subsection{Полусумма экстремальных значений \cite{mean_extr}}
-
-\begin{equation} 
-Z_R = \frac{1}{2}\left(x_1+x_n\right) \hfill  \label{eqn:mean_extr}
-\end{equation}
-
-\subsection{Полусумма квартилей \cite{quartiles}}
-
+Тогда при оценивании математического ожидания $m$ и дисперсии $\sigma^2$ нормального распределения $N(m,\sigma)$ получим:
 \begin{equation}
-Z_Q = \frac{1}{2}\left(Z_{\frac{1}{4}}+Z_{\frac{3}{4}}\right) \hfill  
-\label{eqn:quartiles}
+    \ln(\mathbf{L})=-\frac{n}{2}\ln(2\pi)-\frac{n}{2}\ln\left(\sigma^2\right)-\frac{1}{2\sigma^2}\sum\limits_{i=1}^n(x_i-m)^2
 \end{equation}
 
-\subsection{Усечённое среднее \cite{cut_mean}}
+\subsection{Критерий согласия Пирсона}
+Разобьём генеральную совокупность на $k$ неперсекающихся подмножеств $\Delta_1, \Delta_2,\ldots, \Delta_k,\;\Delta_i = (a_i,a_{i+1}],$ $p_i = P(X\in\Delta_i),\;i=1,2,\ldots,k\; \--$ вероятность того, что точка попала в $i$ый промежуток.
 
+Так как генеральная совокупность это $\mathbb{R},$ то крайние промежутки будут бесконечными: $\Delta_1=(-\infty,a_1],\;\Delta_k=(a_k,\infty),\;p_i = F(a_i)-F(a_{i-1})$
+
+$n_i\;\--$ частота попадания выборочных элементов в $\Delta_i,\;i=1,2,\ldots,k.$
+
+В случае справедливости гипотезы $H_0$ относительно частоты $\frac{n_i}{n}$ при больших $n$ должны быть близки к $p_i,$ значит в качестве меры имеет смысл взять: 
 \begin{equation}
-Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
+    Z = \sum\limits_{i=1}^k\frac{n}{p_i}\left(\frac{n_i}{n}-p_i\right)^2
 \end{equation}
-
-\pagebreak
+Тогда
+\begin{equation}
+    \chi^2_B=\sum\limits_{i=1}^k\frac{n}{p_i}\left(\frac{n_i}{n}-p_i\right)^2=\sum\limits_{i=1}^k\frac{(n_i-np_i)^2}{np_i}
+\end{equation}
+Для выполнения гипотезы $H_0$ должны выполняться следующие условия \cite{7_2}:
+\begin{equation}
+    \chi_B^2 < \chi_{1-\alpha}^2(k-1)
+\end{equation}
+где $\chi_{1-\alpha}^2(k-1)\;\--$ квантиль распределения $\chi^2$ с $k-1$ степенями свободы порядка $1-\alpha,$ где $\alpha$ заданный уровень значимости.
 
 \section{Реализация}
-Выполнено средствами \textit{python} c применением библиотеки \textit{numpy}\cite{numpy}
+Работы была выполнена на языке $Python 3.7.$
+Для генерации выборок использовался модуль \cite{numpy}.
+Для построения графиков использовалась библиотека matplotlib \cite{plotlib}.
+Функции распределения обрабатывались при помощи библиотеки scipy.stats \cite{skp}
+
 
 \section{Результаты}
+\subsection{Метод максимального правдоподобия}
 
+При подсчете оценок параметров закона нормального распределения методом максимального правдоподобия были получены следующие значения:
+\begin{equation}
+\begin{split}
+    &\overset{\wedge}{m}_{\text{МП}} = -0.0443\\
+   &  \overset{\wedge}{\sigma}^2_{\text{МП}} = 1.0143
+\end{split}
+\end{equation}
+\subsection{Критерий Пирсона}
 \begin{table}[H]
-\caption{normal}
+\caption{Таблица вычислений $\chi^2$}
 \label{tab:my_label1}
 \begin{center}
 \vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+ i & $\Delta_i$ & $n_i$ & $p_i$ & $np_i$ & $n_i-np_i$ & $\frac{(n_i-np_i)^2}{np_i}$\\
 \hline
-E =       &0.003889    &-0.001204   &0.004247    &-0.002884   &0.014986    \\
+1&	 $(-\infty, -1.7100]$ &	4  &0.0530& 5.3025& -1.3025& 0.3199\\
 \hline
-D =       &0.050065    &0.069428    &0.135281    &0.056127    &0.060241    \\
+2& (-1.7100, -0.8964)& 16& 0.1615& 16.1464& -0.1464& 0.0013\\
 \hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
+3& (-0.8964, -0.0828)& 35& 0.2992& 29.9200& 5.0800& 0.8625\\
 \hline
-E =       &0.005639    &-0.001905   &0.006317    &0.003647    &-0.005183   \\
+4& (-0.0828, 0.7308)& 26& 0.2913& 29.1302& -3.1302& 0.3364\\
 \hline
-D =       &0.017071    &0.024751    &0.109666    &0.020065    &0.019645    \\
+5& $(0.7308, \infty)$& 19& 0.1950& 19.5009& -0.5009& 0.0129\\
 \hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.000990   &-0.008915   &-0.003211   &-0.007140   &0.000411    \\
-\hline
-D =       &0.010270    &0.015038    &0.091469    &0.012224    &0.011148    \\
+$\sum$&&		100&	1&	100&0&1.5330	\\
+
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
-\begin{table}[H]
-\caption{cauchy}
-\label{tab:my_label2}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &0.574031    &-0.009207   &4.314604    &0.009490    &0.024569    \\
-\hline
-D =       &380.673006  &0.127344    &24864.038520&0.290641    &0.156087    \\
-\hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &16.889466   &0.007131    &-14.877379  &-0.006227   &-0.007330   \\
-\hline
-D =       &218415.033090&0.039049    &268917.253813&0.087454    &0.042852    \\
-\hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-1.147046   &-0.000622   &-23.949387  &-0.002369   &-0.008024   \\
-\hline
-D =       &604.646590  &0.024850    &1995730.222185&0.051894    &0.023969    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
+$$\chi_B^2= 1.5330$$
 
-\begin{table}[H]
-\caption{laplace}
-\label{tab:my_label3}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.001627   &-0.000952   &0.032669    &0.003535    &0.005730    \\
-\hline
-D =       &0.045803    &0.031761    &0.402496    &0.046401    &0.033325    \\
-\hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.006856   &-0.002807   &0.050344    &-0.000216   &-0.000712   \\
-\hline
-D =       &0.016743    &0.009838    &0.431677    &0.017332    &0.009962    \\
-\hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.000800   &0.001184    &-0.024119   &-0.002611   &-0.000909   \\
-\hline
-D =       &0.009861    &0.005529    &0.409545    &0.009740    &0.006101    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
 
-\begin{table}[H]
-\caption{uniform}
-\label{tab:my_label4}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &-0.004788   &0.011925    &-0.000665   &-0.003460   &-0.002870   \\
-\hline
-D =       &0.049107    &0.134658    &0.013457    &0.071206    &0.097207    \\
-\hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &0.001583    &-0.004005   &-0.001657   &-0.005769   &-0.003667   \\
-\hline
-D =       &0.016670    &0.045087    &0.001706    &0.024632    &0.033966    \\
-\hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &0.000676    &0.004193    &-0.000025   &-0.005675   &0.004133    \\
-\hline
-D =       &0.010255    &0.028780    &0.000621    &0.015457    &0.019007    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
 
-\begin{table}[H]
-\caption{poisson}
-\label{tab:my_label5}
-\begin{center}
-\vspace{5mm}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-n = 20    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &2.016900    &1.868000    &2.531500    &1.899250    &1.865800    \\
-\hline
-D =       &0.099684    &0.179576    &0.290758    &0.133599    &0.115410    \\
-\hline
-n = 60    &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &2.005733    &1.932500    &2.945000    &1.936875    &1.843400    \\
-\hline
-D =       &0.033034    &0.054194    &0.233475    &0.034812    &0.041836    \\
-\hline
-n = 100   &average     &med         &Zr          &Zq          &Ztr r = n/4 \\
-\hline
-E =       &1.997070    &1.961500    &3.128000    &1.963625    &1.844780    \\
-\hline
-D =       &0.020288    &0.033268    &0.217616    &0.017067    &0.027989    \\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\section{Обсуждение}
-
-\par При вычислении средних значений пришлось отбрасывать некоторое число знаков после запятой, так как дисперсия может гарантировать порядок точности среднего значения только до первого значащего знака после запятой в дисперсии включительно. Единственное исключение - стандартное распределение Коши, так как оно имеет бесконечную дисперсию, а значит не может гарантировать никакой точности.
 
 \section{Выводы}
 
-\par В процессе работы вычислены значения характеристик положения для определённых распределений на выборках фиксированной мощности и получено следующее ранжирование характеристик положения:
+В данной работе получено значение критерия согласия Пирсона $\chi_B^2 = 1.5330.$ Табличное значение квантиля  $\chi^2_{1-\alpha}(k-1)=\chi^2_{0.95}(4) = 9,4877$ \cite{chi_quant}.
 
-\begin{enumerate}
-    \item Стандартное нормальное распределение $$\overline{x} < Z_{tr} < Z_Q < med\;x < Z_R$$
-    
-    \item Стандартное распределение Коши $$med\;x < Z_Q < Z_{tr} < \overline{x} < Z_R$$
-    
-    \item Распределение Лапласа (коэффициент масштаба $\sqrt{2}$ коэффициент сдвига равен нулю) $$med\;x < Z_{tr} < \overline{x} < Z_Q < Z_R$$
-    
-    \item Равномерное распределение на отрезке $\left[-\sqrt{3},\sqrt{3}\right]$ $$Z_R < \overline{x} < Z_{tr} < Z_Q < med\;x$$
-    
-    \item Распределение Пуассона (значение мат ожидания равно $3$) $$\overline{x} < Z_{tr} < Z_Q < med\;x < Z_R$$
-    
-\end{enumerate}
+Значит $\chi_B^2 < \chi^2_{0.95}(4),$ из этого следует, что основная гипотеза $H_0$ соотносится с выборкой на уровне $\alpha = 0.05.$
 
 \begin{thebibliography}{}
     \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
     
-    \bibitem{average}  
-    Выборочное среднее  -  https://en.wikipedia.org/wiki/Sample\_mean\_and\_covariance
+    \bibitem{plotlib} 
+    Модуль matplotlib - https://matplotlib.org/users/index.html
     
-    \bibitem{med}  
-    Выборочная медиана  -  http://femto.com.ua/articles/part\_1/2194.html
+    \bibitem{skp}
+    Модуль scipy - https://docs.scipy.org/doc/scipy/reference/
     
-    \bibitem{mean_extr}  
-    Полусумма экстремальных значений  -  https://studopedia.info/8-56888.html
-    
-    \bibitem{quartiles}  
-    Квартили  -  https://studfiles.net/preview/2438125/page:13/
-    
-    \bibitem{cut_mean}  Усечённое среднее  -  https://ole-olesko.livejournal.com/15773.html
-\end{thebibliography}
 
+\bibitem{7_2}
+https://en.wikipedia.org/wiki/Pearson\%27s\_chi-squared\_test
+
+\bibitem{chi_quant}
+Таблица значений $\chi^2$ -  https://ru.wikipedia.org/wiki/\%D0\%9A\%D0\%B2\%D0\%B0\%D0\%BD\%D1\%82\%D0\%B8\%D0\%BB\%D0\%\do-B8\_\%D1\%80\%D0\%B0\%D1\%81\%D0\%BF\%D1\%80\%D0\%B5\%D0\%B4\%D0\%B5\%D0\%BB\%D0\%B5\%D0\%\do-BD\%D0\%B8\%D1\%8F\_\%D1\%85\%D0\%B8-\%D0\%BA\%D0\%B2\%D0\%B0\%D0\%B4\%D1\%80\%D0\%B0\%D1\%\do-82\%D0\%B2\%D0\%B0\%D0\%B4\%D1\%80\%D0\%B0\%D1\%82
+
+\end{thebibliography}
 \section{Приложения}
 
 Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_2}
