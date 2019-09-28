@@ -10,10 +10,6 @@ selection = [20, 60, 100, 1000]
 cor = [0, 0.5, 0.9]
 
 
-
-
-
-
 def E(x):
     return np.mean(x)
 
@@ -57,7 +53,6 @@ cor_coef_dict = {
 }
 
 
-
 def mix_normal_dist(p, N):
     cov1 = [[1, p], [p, 1]]
     cov2 = [[100, -p], [-p, 100]]
@@ -69,7 +64,6 @@ def normal_dist(p, N):
     cov = [[1, p], [p, 1]]
     mean = [0, 0]
     return np.random.multivariate_normal(mean, cov, N)
-
 
 
 dist_dict = {
@@ -98,7 +92,6 @@ def dist_ellips(x, y, ax):
     ell.set_facecolor('none')
     ax.add_artist(ell)
     plt.scatter(x, y)
-
 
 
 def research(p, N, dist, ax):
@@ -145,10 +138,6 @@ def draw(dist_name, p):
         research(p, N, dist_dict[dist_name], ax)
 
     plt.show()
-
-
-
-
 
 f = open('out.csv', 'w')
 sys.stdout = f

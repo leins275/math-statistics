@@ -35,9 +35,7 @@
 
 	\vfill ~
 	\textbf{
-		\\ \large ЛАБОРАТОРНАЯ РАБОТА №2
-		\\	\normalsize	
-			Характеристики положения выборки
+		\\ \large ЛАБОРАТОРНАЯ РАБОТА №5
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
@@ -71,57 +69,42 @@
 % Text
 %%%
 \section{Постановка задачи}
-Любыми средствами сгенерировать выборки размеров $20,$ $60,$ $100$ элементов для $5$ти распределений. Для каждой выборки вычислить $\overline{x},\; med\; x,\; Z_R,\; Z_Q,\; Z_{tr},$ при $r = \frac{n}{4}.$
+Необходимо построить выборки объёмом $20, 60, 100, 1000$ для двумерного нормального распределения с коэффициентами корреляции $\rho = 0, 0.5, 0.9$
 
-Распределения:
-\begin{enumerate}
-\item Стандартное нормальное распределение
-\item Стандартное распределение Коши
-\item Распределение Лапласа с коэффициентом масштаба $\sqrt{2}$ и нулевым коэффициентом сдвига.
-\item Равномерное распределение на отрезке $\left[-\sqrt{3}, \sqrt{3}\right]$
-\item Распределение Пуассона со значением матожидания равным двум.
-\end{enumerate}
+Вычислить коэффициент корреляции Пирсона, Спирмана и квадрантный коэффициент корреляции для каждой выборки. Эти же вычисления повторить для смеси двумерных нормальных распределений \cite{mix}: 
+\begin{equation}
+    f(x,y) = 0.9N(x,y,0,0,1,1,0.9)+0.1N(x,y,0,0,10,10,-0.9)
+\end{equation}
+На графике изобразить точки выборки и эллипс равновероятности.
 
 \section{Теория}
 
-\subsection{Выборочное среднее \cite{average}}
-
-\begin{equation}
-\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i \hfill \label{eqn:average}
-\end{equation}
-
-\subsection{Выборочная медиана \cite{med}}
-
-\begin{equation}
-med\; x = \begin{cases}
-x_{k+1}, & n = 2k+1\\
-\frac{1}{2}\left(x_k+x_{k+1}\right), & n = 2k
-\end{cases} \hfill  \label{eqn:med}
-\end{equation}
-
-\subsection{Полусумма экстремальных значений \cite{mean_extr}}
-
-\begin{equation} 
-Z_R = \frac{1}{2}\left(x_1+x_n\right) \hfill  \label{eqn:mean_extr}
-\end{equation}
-
-\subsection{Полусумма квартилей \cite{quartiles}}
-
-\begin{equation}
-Z_Q = \frac{1}{2}\left(Z_{\frac{1}{4}}+Z_{\frac{3}{4}}\right) \hfill  
-\label{eqn:quartiles}
-\end{equation}
-
-\subsection{Усечённое среднее \cite{cut_mean}}
-
-\begin{equation}
-Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
-\end{equation}
-
-\pagebreak
+\begin{enumerate}
+    \item Двумерное нормально распределение \cite{5_1}:
+        \begin{equation}
+        N(x,y,0,0,1,1,\rho) = \frac{1}{2\pi\sqrt{1-\rho^2}}e^{-\frac{1}{2(1-\rho^2)}(x^2-2\rho x y+y^2)} \label{dnd}
+        \end{equation}
+    
+    \item Коэффициент корреляции Пирсона \cite{5_2}:
+        \begin{equation}
+        r_{xy} = \left(\sum\limits_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})\right)\left(\sum\limits_{i=1}^n(x_i-\overline{x})^2\sum\limits_{i=1}^n(y_i-\overline{y})^2\right)^{-\frac{1}{2}} \label{ccp}
+        \end{equation}
+    \item Коэффициент корреляции Спирмана \cite{5_3}:
+        \begin{equation}
+        \rho_n = 1 -  \frac{6}{n^3-n}\sum\limits_{i=1}^n d_i^2\label{ccs}
+        \end{equation}
+        
+    \item Квадрантный коэффициент корреляции \cite{5_4}:
+        \begin{equation}
+        \overset{\wedge}{q} = \frac{1}{n}\sum\limits_{i=1}^n sign(x_i-med\;x)sign(y_i-med\;y)\label{qcc}
+        \end{equation}
+\end{enumerate}
 
 \section{Реализация}
-Выполнено средствами \textit{python} c применением библиотеки \textit{numpy}\cite{numpy}
+Работы была выполнена на языке $Python 3.7.$
+Для генерации выборок использовался модуль \cite{numpy}.
+Для построения графиков использовалась библиотека matplotlib \cite{plotlib}.
+Функции распределения обрабатывались при помощи библиотеки scipy.stats \cite{skp}
 
 \section{Результаты}
 
