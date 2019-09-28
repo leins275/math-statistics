@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ea3188ab-8375-4004-98c9-c83ae53f7e83" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_5/lab_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab_5/lab_5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_5/lab_5.tex" beforeDir="false" afterPath="$PROJECT_DIR$/lab_5/lab_5.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab_6/lab_6.tex" beforeDir="false" afterPath="$PROJECT_DIR$/lab_6/lab_6.tex" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +18,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lab_5/pic" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lab_6/pic" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -34,7 +33,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.lab_5">
+  <component name="RunManager" selected="Python.lab_6">
     <configuration name="converter" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="math_statistics" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -271,7 +270,7 @@
       <workItem from="1569667829066" duration="298000" />
       <workItem from="1569670807641" duration="98000" />
       <workItem from="1569670941646" duration="10000" />
-      <workItem from="1569671227451" duration="5449000" />
+      <workItem from="1569671227451" duration="7207000" />
     </task>
     <task id="LOCAL-00001" summary="Updated lab_2.py">
       <created>1569434966218</created>
@@ -336,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569594409751</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Updated lab 5">
+      <created>1569679187471</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1569679187471</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,11 +385,12 @@
     <MESSAGE value="Added pycharm files" />
     <MESSAGE value="Updated lab_3.tex" />
     <MESSAGE value="Updated lab_4.tex&#10;&#10; - fixed report&#10; - add pics for 4 lab&#10; - updated .tex templates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated lab_4.tex&#10;&#10; - fixed report&#10; - add pics for 4 lab&#10; - updated .tex templates" />
+    <MESSAGE value="Updated lab 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated lab 5" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/math_statistics$lab_3.coverage" NAME="lab_3 Coverage Results" MODIFIED="1569573498929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_3" />
-    <SUITE FILE_PATH="coverage/math_statistics$lab_6.coverage" NAME="lab_6 Coverage Results" MODIFIED="1569441946826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_6" />
+    <SUITE FILE_PATH="coverage/math_statistics$lab_6.coverage" NAME="lab_6 Coverage Results" MODIFIED="1569680282661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_6" />
     <SUITE FILE_PATH="coverage/math_statistics$lab_4.coverage" NAME="lab_4 Coverage Results" MODIFIED="1569590717109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_4" />
     <SUITE FILE_PATH="coverage/math_statistics$lab_7.coverage" NAME="lab_7 Coverage Results" MODIFIED="1569441968483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_7" />
     <SUITE FILE_PATH="coverage/math_statistics$lab_2.coverage" NAME="lab_2 Coverage Results" MODIFIED="1569444604482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_2" />
