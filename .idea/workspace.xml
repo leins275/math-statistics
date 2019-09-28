@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea3188ab-8375-4004-98c9-c83ae53f7e83" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ea3188ab-8375-4004-98c9-c83ae53f7e83" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +267,7 @@
       <workItem from="1569667829066" duration="298000" />
       <workItem from="1569670807641" duration="98000" />
       <workItem from="1569670941646" duration="10000" />
-      <workItem from="1569671227451" duration="13146000" />
+      <workItem from="1569671227451" duration="13186000" />
     </task>
     <task id="LOCAL-00001" summary="Updated lab_2.py">
       <created>1569434966218</created>
@@ -362,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569687545817</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="workspace.xml commit">
+      <created>1569689510006</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1569689510006</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -409,7 +414,8 @@
     <MESSAGE value="Updated lab 6" />
     <MESSAGE value="Updated lab 7" />
     <MESSAGE value="Updated lab 8" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated lab 8" />
+    <MESSAGE value="workspace.xml commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml commit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/math_statistics$lab_3.coverage" NAME="lab_3 Coverage Results" MODIFIED="1569573498929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_3" />
