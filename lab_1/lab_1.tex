@@ -1,21 +1,51 @@
+%%%
+% set up document type
+%%%
 \documentclass[12pt]{article}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphics}
 \usepackage[english, russian]{babel}
-\usepackage{csquotes}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{longtable}
-\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
-\usepackage{verbatim}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
 \usepackage{hyperref}
 
+\usepackage{amssymb,latexsym} 
+\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hhline}
+
+\usepackage{color,colortbl}
+
+%%%
+% document settings
+%%%
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
 
-\addto\captionsrussian{\def\refname{6 \: Литература}}
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
+\tocsection
+\tocfile{\listfigurename}{lof}
+\endgroup}
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
+\tocsection
+\tocfile{\listtablename}{lot}
+\endgroup}
 
+%******************************************************************
+%******************************************************************
 \begin{document}
 
 \begin{titlepage}
@@ -28,9 +58,6 @@
 	\vfill ~
 	\textbf{
 		\\ \large ЛАБОРАТОРНАЯ РАБОТА №1
-		\\	\normalsize	
-			Сравнение распределений выборок для различных 
-		\\	функций распределения с теоретическими оценками
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
@@ -49,12 +76,13 @@
 %%%
 % Table of conetnts 
 %%%
-% \settocdepth{chapter}
-\tableofcontents
-\listoffigures
-\pagebreak
 
-% \setcounter{chapter}{1}
+\tableofcontents 
+\newpage
+\listoffigures
+\newpage
+% \listoftables
+% \newpage
 
 %%%
 % Text
@@ -145,17 +173,21 @@ P(7) = \frac{7^k}{k!}e^{-7}
 \end{center}
 \end{figure}
 
-\section{Обсуждение}
+\section{Выводы}
 
-\subsection{Выводы}
 В результате работы были построены графики для трёх выборок разных мощностей для каждого из рассматриваемых распределений. Из графиков видно, что с увеличением мощности выборки, диаграмма всё менее отклоняется от теоретического значения. Это иллюстрирует факт того, что при стремлении можности выборки к бесконечности диаграмма выборки будет оцениваться теоретической кривой с любой интересующей нас точностью.
 \par
 Конечно, за счёт того что размеры выборок довольно малы, то могут наблюдаться некоторые "выбросы" в конкретных точках (особенно заметно на самых левых графиках для мощности 10). Это объясняется тем, что значения выборки генерируются случайным образом и данных на такой мощности для построения теоретических оценок оказывается недостаточно.
 
-\addcontentsline{toc}{section}{6 \: Литература}
- 
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_1}
+
+%%%
+% Literature
+%%% 
 \begin{thebibliography}{}
-    \bibitem{wiki} \url{https://www.wikipedia.org/}
+    \bibitem{wiki} https://www.wikipedia.org/
 \end{thebibliography}
 
 \end{document}
