@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ea3188ab-8375-4004-98c9-c83ae53f7e83" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_5/lab_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab_5/lab_5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab_5/lab_5.tex" beforeDir="false" afterPath="$PROJECT_DIR$/lab_5/lab_5.tex" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -268,7 +266,8 @@
       <workItem from="1569588742849" duration="245000" />
       <workItem from="1569589463452" duration="4003000" />
       <workItem from="1569664003024" duration="33000" />
-      <workItem from="1569667829066" duration="298000" />
+      <workItem from="1569667829066" duration="488000" />
+      <workItem from="1569757580812" duration="257000" />
     </task>
     <task id="LOCAL-00001" summary="Updated lab_2.py">
       <created>1569434966218</created>
@@ -333,7 +332,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569594409751</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="In progress&#10;&#10; - lab_5">
+      <created>1569668302941</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1569668302941</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +382,8 @@
     <MESSAGE value="Added pycharm files" />
     <MESSAGE value="Updated lab_3.tex" />
     <MESSAGE value="Updated lab_4.tex&#10;&#10; - fixed report&#10; - add pics for 4 lab&#10; - updated .tex templates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated lab_4.tex&#10;&#10; - fixed report&#10; - add pics for 4 lab&#10; - updated .tex templates" />
+    <MESSAGE value="In progress&#10;&#10; - lab_5" />
+    <option name="LAST_COMMIT_MESSAGE" value="In progress&#10;&#10; - lab_5" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/math_statistics$lab_3.coverage" NAME="lab_3 Coverage Results" MODIFIED="1569573498929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lab_3" />
