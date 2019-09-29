@@ -1,41 +1,51 @@
+%%%
+% set up document type
+%%%
 \documentclass[12pt]{article}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphics}
 \usepackage[english, russian]{babel}
-\usepackage{csquotes}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{longtable}
-\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
-\usepackage{verbatim}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
 \usepackage{hyperref}
-\usepackage{amssymb,latexsym}  % Standard packages
+
+\usepackage{amssymb,latexsym} 
 \usepackage{MnSymbol}
 \usepackage{mathrsfs}
-\usepackage{amsthm}
-\usepackage{indentfirst}
+
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hhline}
 
-%******************************************************************
-%******************************************************************
+\usepackage{color,colortbl}
 
+%%%
+% document settings
+%%%
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
 
-\renewcommand{\listoffigures}{\begingroup %добавляем номер в список иллюстраций
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
 \tocsection
 \tocfile{\listfigurename}{lof}
 \endgroup}
-\renewcommand{\listoftables}{\begingroup %добавляем номер в список таблиц
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
 \tocsection
 \tocfile{\listtablename}{lot}
 \endgroup}
 
 %******************************************************************
 %******************************************************************
-
 \begin{document}
 
 \begin{titlepage}
@@ -48,13 +58,11 @@
 	\vfill ~
 	\textbf{
 		\\ \large ЛАБОРАТОРНАЯ РАБОТА №3
-		\\	\normalsize	
-			Боксплот Тьюки
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
 
-	\vfill 
+	\vfill ~
 
 	Выполнил студент гр. \textbf{33631/1} \\
 	\textbf{Лансков.Н.В.} \\ 
@@ -68,16 +76,13 @@
 %%%
 % Table of conetnts 
 %%%
-% \settocdepth{chapter}
-\tableofcontents
-\newpage
-\listoffigures{}
-\newpage
-\listoftables{}
-\newpage
-\pagebreak
 
-% \setcounter{chapter}{1}
+\tableofcontents 
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
 
 %%%
 % Text
@@ -134,27 +139,27 @@ x_{[np]+1}, & np \notin \mathbb{Z}
 \begin{center}
 \begin{figure}[H]
 \caption{Boxplot нормальное распределение }
-\includegraphics[width=\textwidth]{normal.png}
+\includegraphics[scale = 0.7]{normal.png}
 \end{figure}
 
 \begin{figure}[H]
 \caption{Boxplot стандартное распределение Лапласа }
-\includegraphics[width=\textwidth]{laplace.png} 
+\includegraphics[scale = 0.7]{laplace.png} 
 \end{figure}
 
 \begin{figure}[H]
 \caption{Boxplot стандартное распределение Коши }
-\includegraphics[width=\textwidth]{cauchy.png} 
+\includegraphics[scale = 0.7]{cauchy.png} 
 \end{figure}
 
 \begin{figure}[H]
 \caption{Boxplot распределение Пуассона }
-\includegraphics[width=\textwidth]{poisson.png} 
+\includegraphics[scale = 0.7]{poisson.png} 
 \end{figure}
 
 \begin{figure}[H]
  \caption{Boxplot равномерное распределение }
-\includegraphics[width=\textwidth]{uniform.png}
+\includegraphics[scale = 0.7]{uniform.png}
 \end{figure}
 
 \begin{table}[H]
@@ -217,6 +222,9 @@ uniform<normal<poisson<laplace<cauchy
 
 Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_3}
 
+%%%
+% Literature
+%%%
 \begin{thebibliography}{}
     \bibitem{med}  
     Выборочная медиана  -  http://femto.com.ua/articles/part\_1/2194.html

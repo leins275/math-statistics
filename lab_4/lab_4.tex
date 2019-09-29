@@ -1,29 +1,51 @@
+%%%
+% set up document type
+%%%
 \documentclass[12pt]{article}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphics}
 \usepackage[english, russian]{babel}
-\usepackage{csquotes}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{longtable}
-\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
-\usepackage{verbatim}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
 \usepackage{hyperref}
-\usepackage{amssymb,latexsym}  % Standard packages
+
+\usepackage{amssymb,latexsym} 
 \usepackage{MnSymbol}
 \usepackage{mathrsfs}
-\usepackage{amsthm}
-\usepackage{indentfirst}
+
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hhline}
 
-%******************************************************************
-%******************************************************************
+\usepackage{color,colortbl}
 
+%%%
+% document settings
+%%%
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
 
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
+\tocsection
+\tocfile{\listfigurename}{lof}
+\endgroup}
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
+\tocsection
+\tocfile{\listtablename}{lot}
+\endgroup}
+
+%******************************************************************
+%******************************************************************
 \begin{document}
 
 \begin{titlepage}
@@ -36,8 +58,6 @@
 	\vfill ~
 	\textbf{
 		\\ \large ЛАБОРАТОРНАЯ РАБОТА №4
-		\\	\normalsize	
-			Эмпирические функции и ядерные оценки
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
@@ -56,16 +76,13 @@
 %%%
 % Table of conetnts 
 %%%
-% \settocdepth{chapter}
-\tableofcontents
+
+\tableofcontents 
 \newpage
 \listoffigures
 \newpage
 % \listoftables
 % \newpage
-\pagebreak
-
-% \setcounter{chapter}{1}
 
 %%%
 % Text
@@ -222,6 +239,11 @@ $X = \left(X_1,\ldots, X_n\right)$ есть одномерная выборка 
 
 Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_4}
 
+\newpage
+
+%%%
+% Literature
+%%%
 \begin{thebibliography}{}
     \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
     

@@ -1,44 +1,51 @@
+%%%
+% set up document type
+%%%
 \documentclass[12pt]{article}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphics}
 \usepackage[english, russian]{babel}
-\usepackage{csquotes}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{longtable}
-\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
-\usepackage{verbatim}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
 \usepackage{hyperref}
-\usepackage{amssymb,latexsym}  % Standard packages
+
+\usepackage{amssymb,latexsym} 
 \usepackage{MnSymbol}
 \usepackage{mathrsfs}
-\usepackage{amsthm}
-\usepackage{indentfirst}
+
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{float}
-
 \usepackage{listings}
-\usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage{hhline}
-\usepackage{listings}
-\usepackage{color}
+
 \usepackage{color,colortbl}
-\usepackage{epigraph} %%% to make inspirational quotes.
-\usepackage[all]{xy} %for XyPic'a
-\usepackage{color} 
-\usepackage{amscd} %для коммутативных диграмм
-\usepackage{url}
-\usepackage{breakurl}
-\usepackage[titles]{tocloft}
 
-%******************************************************************
-%******************************************************************
-
+%%%
+% document settings
+%%%
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
 
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
+\tocsection
+\tocfile{\listfigurename}{lof}
+\endgroup}
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
+\tocsection
+\tocfile{\listtablename}{lot}
+\endgroup}
+
+%******************************************************************
+%******************************************************************
 \begin{document}
 
 \begin{titlepage}
@@ -69,16 +76,13 @@
 %%%
 % Table of conetnts 
 %%%
-% \settocdepth{chapter}
-\tableofcontents
+
+\tableofcontents 
 \newpage
-% \listoffigures
-% \newpage
+\listoffigures
+\newpage
 \listoftables
 \newpage
-\pagebreak
-
-% \setcounter{chapter}{1}
 
 %%%
 % Text
@@ -304,8 +308,13 @@
 
 По графикам видно, что при уменьшении корреляции эллипс равновероятности стремится к окружности, а при увеличении растягивается.
 
+\section{Приложения}
 
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_5}
 
+%%%
+% Literature
+%%%
 \begin{thebibliography}{}
     \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
     
@@ -319,7 +328,7 @@
     http://stu.sernam.ru/book\_stat3.php?id=55
     
 \bibitem{5_1}
-Двумерное нормальное распределение: https://en.wikipedia.org/wiki/Multivariate\_normal\_distribution
+Двумерное нормальное распределение:\\  https://en.wikipedia.org/wiki/Multivariate\_normal\_distribution
 \bibitem{5_2}
 Коэффициент корреляции Пирса: http://statistica.ru/theory/koeffitsient-korrelyatsii/ 
 \bibitem{5_3}
@@ -328,11 +337,6 @@ http://economic-definition.com/Exchange\_Terminology/Koefficient\_korrelyacii\_C
 \bibitem{5_4} Квадрантный коэффициент корреляции: https://www.researchgate.net/profile/Pavel\_Smirnov8/publication/\do-316973167\_Robastnye\_metody\_i\_algoritmy\_ocenivania\_korrelacionnyh\_harakteristik\_dannyh\_na\_os\do-nove\_novyh\_vysokoeffektivnyh\_i\_bystryh\_robastnyh\_ocenok\_masstaba/links/591b019d458515695282\do-8a52/Robastnye-metody-i-algoritmy-ocenivania-korrelacionnyh-harakteristik-dannyh-na-osnove-novyh-vysokoeffektivnyh-i-bystryh-robastnyh-ocenok-masstaba.pdf\#page=81
 
 \end{thebibliography}
-
-
-\section{Приложения}
-
-Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_2}
 
 \end{document}
 

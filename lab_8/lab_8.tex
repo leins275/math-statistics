@@ -1,29 +1,51 @@
+%%%
+% set up document type
+%%%
 \documentclass[12pt]{article}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphics}
 \usepackage[english, russian]{babel}
-\usepackage{csquotes}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{longtable}
-\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
-\usepackage{verbatim}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
 \usepackage{hyperref}
-\usepackage{amssymb,latexsym}  % Standard packages
+
+\usepackage{amssymb,latexsym} 
 \usepackage{MnSymbol}
 \usepackage{mathrsfs}
-\usepackage{amsthm}
-\usepackage{indentfirst}
+
 \usepackage[nottoc,numbib]{tocbibind}
 \usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hhline}
 
-%******************************************************************
-%******************************************************************
+\usepackage{color,colortbl}
 
+%%%
+% document settings
+%%%
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
 
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
+\tocsection
+\tocfile{\listfigurename}{lof}
+\endgroup}
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
+\tocsection
+\tocfile{\listtablename}{lot}
+\endgroup}
+
+%******************************************************************
+%******************************************************************
 \begin{document}
 
 \begin{titlepage}
@@ -54,16 +76,13 @@
 %%%
 % Table of conetnts 
 %%%
-% \settocdepth{chapter}
-\tableofcontents
+
+\tableofcontents 
 \newpage
 % \listoffigures
 % \newpage
 \listoftables
 \newpage
-\pagebreak
-
-% \setcounter{chapter}{1}
 
 %%%
 % Text
@@ -146,9 +165,15 @@
 
 \section{Выводы}
 
-
 По полученным результатам видно, что оба подхода дают лучший результат на выборках большого объема. Если рассматривать результаты для выборки объема $n=20$ элементов, то видно, что интервал меньше и точнее в классической интервальной оценке.
 
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_8}
+
+%%%
+% Literature
+%%%
 \begin{thebibliography}{}
     \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
     
@@ -172,10 +197,6 @@ https://en.wikipedia.org/wiki/Chi-squared\_distribution
 Шевляков Г. Л. Лекции по математической статистике, 2019.
 
 \end{thebibliography}
-
-\section{Приложения}
-
-Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_8}
 
 \end{document}
 
