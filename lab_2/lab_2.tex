@@ -101,13 +101,15 @@
 
 \section{Теория}
 
-\subsection{Выборочное среднее \cite{average}}
+\begin{enumerate}
+
+\item{Выборочное среднее \cite{average}}
 
 \begin{equation}
 \overline{x} = \frac{1}{n}\sum_{i=1}^n x_i \hfill \label{eqn:average}
 \end{equation}
 
-\subsection{Выборочная медиана \cite{med}}
+\item{Выборочная медиана \cite{med}}
 
 \begin{equation}
 med\; x = \begin{cases}
@@ -116,26 +118,26 @@ x_{k+1}, & n = 2k+1\\
 \end{cases} \hfill  \label{eqn:med}
 \end{equation}
 
-\subsection{Полусумма экстремальных значений \cite{mean_extr}}
+\item{Полусумма экстремальных значений \cite{mean_extr}}
 
 \begin{equation} 
 Z_R = \frac{1}{2}\left(x_1+x_n\right) \hfill  \label{eqn:mean_extr}
 \end{equation}
 
-\subsection{Полусумма квартилей \cite{quartiles}}
+\item{Полусумма квартилей \cite{quartiles}}
 
 \begin{equation}
 Z_Q = \frac{1}{2}\left(Z_{\frac{1}{4}}+Z_{\frac{3}{4}}\right) \hfill  
 \label{eqn:quartiles}
 \end{equation}
 
-\subsection{Усечённое среднее \cite{cut_mean}}
+\item{Усечённое среднее \cite{cut_mean}}
 
 \begin{equation}
 Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
 \end{equation}
 
-\pagebreak
+\end{enumerate}
 
 \section{Реализация}
 Выполнено средствами \textit{python} c применением библиотеки \textit{numpy}\cite{numpy}
@@ -318,8 +320,6 @@ D =       &0.020288    &0.033268    &0.217616    &0.017067    &0.027989    \\
 % Literature
 %%%
 \begin{thebibliography}{}
-    \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
-    
     \bibitem{average}  
     Выборочное среднее  -  https://en.wikipedia.org/wiki/Sample\_mean\_and\_covariance
     
@@ -333,6 +333,8 @@ D =       &0.020288    &0.033268    &0.217616    &0.017067    &0.027989    \\
     Квартили  -  https://studfiles.net/preview/2438125/page:13/
     
     \bibitem{cut_mean}  Усечённое среднее  -  https://ole-olesko.livejournal.com/15773.html
+    
+    \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
 \end{thebibliography}
 
 \end{document}
