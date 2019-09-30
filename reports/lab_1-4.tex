@@ -1,0 +1,87 @@
+%%%
+% set up document type
+%%%
+\documentclass[12pt]{article}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
+\usepackage{hyperref}
+
+\usepackage{amssymb,latexsym} 
+\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hhline}
+
+\usepackage{color,colortbl}
+
+%%%
+% document settings
+%%%
+\setcounter{tocdepth}{4}
+\graphicspath{ {./pic/} }
+
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
+\tocsection
+\tocfile{\listfigurename}{lof}
+\endgroup}
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
+\tocsection
+\tocfile{\listtablename}{lot}
+\endgroup}
+
+%******************************************************************
+%******************************************************************
+\begin{document}
+
+\begin{titlepage}
+	\center
+		Санкт-Петербургский Политехнический 
+		университет Петра Великого
+		Институт прикладной математики и механики
+		\\ \textbf{Кафедра «Прикладная математика»}
+
+	\vfill ~
+	\textbf{
+		\\ \large СВОДНЫЙ ОТЧЁТ №1
+	}
+	\\	по дисциплине 
+	\\	"Математическая статистика"
+
+	\vfill ~
+
+	Выполнил студент гр. \textbf{33631/1} \\
+	\textbf{Лансков.Н.В.} \\ 
+
+\vfill
+
+{\large}	Санкт-Петербург
+\\ 2019
+\end{titlepage}
+
+%%%
+% Table of conetnts 
+%%%
+
+\tableofcontents 
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+
+\end{document}
