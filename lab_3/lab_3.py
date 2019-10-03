@@ -1,6 +1,6 @@
 import numpy
 import seaborn as sns
-import matplotlib.pyplot as mplot
+import matplotlib.pyplot as plt
 import sys
 
 
@@ -8,8 +8,8 @@ POISSON_PARAM = 2
 UNIFORM_LEFT = -numpy.sqrt(3)
 UNIFORM_RIGHT = numpy.sqrt(3)
 LAPLAS_COEF = numpy.sqrt(2)
-selection = [20, 100]
-selection = numpy.sort(selection)
+selection = numpy.sort([20, 100])
+
 
 def standart_normal(x):
     return (1 / numpy.sqrt(2*numpy.pi)) * numpy.exp(- x * x / 2)
@@ -74,7 +74,7 @@ def Zq(x):
 
 def Ztr(x):
     length = x.size
-    r = (int)(length / 4)
+    r = int(length / 4)
     sum = 0
     for i in range(r, length - r):
         sum += x[i]
@@ -91,7 +91,7 @@ def ejection(x):
     left = numpy.quantile(x, 1 / 4) - 1.5 * IQR(x)
     right = numpy.quantile(x, 3 / 4) + 1.5 * IQR(x)
     for i in range(0, length):
-        if(x[i] < left or x[i] > right):
+        if x[i] < left or x[i] > right:
             count += 1
     return count / length
 
@@ -121,12 +121,7 @@ def D(z):
     return numpy.var(z)
 
 
-f = open('out1.csv', 'w')
-std = sys.stdout
-sys.stdout = f
-
 def research(dist_type):
-   # print('-------------------------------------')
     print()
     print(dist_type)
 
@@ -145,23 +140,25 @@ def research(dist_type):
         print("%-12f;" % E(eject), end="")
         print()
 
-    mplot.figure(dist_type)
-    mplot.title(dist_type)
+    plt.figure(dist_type)
+    plt.title(dist_type)
     sns.set(style="whitegrid")
     ax = sns.boxplot(data=data, orient='h')
-    mplot.yticks(numpy.arange(2), ('20', '100'))
-    mplot.show()
+    plt.yticks(numpy.arange(2), ('20', '100'))
+    plt.show()
 
 
+if __name__ == "__main__":
+    f = open('out1.csv', 'w')
+    std = sys.stdout
+    sys.stdout = f
 
+    research('normal')
+    research('cauchy')
+    research('laplace')
+    research('uniform')
+    research('poisson')
 
-research('normal')
-research('cauchy')
-research('laplace')
-research('uniform')
-research('poisson')
-
-
-f.close()
-sys.stdout = std
-print("Done")
+    f.close()
+    sys.stdout = std
+    print("Done")
