@@ -46,51 +46,53 @@ def mnm(x, y):
 
     return x, y_hat
 
+if __name__ == '__main__':
+    l = -1.8
+    r = 2
+    h = 0.2
+    a = 2
+    b = 2
 
-l = -1.8
-r = 2
-h = 0.2
-a = 2
-b = 2
+    plt.figure()
+    plt.subplot(121)
+    plt.title("Original sample")
+    print("\t\t\tOriginal sample")
 
-plt.figure()
-plt.subplot(121)
-plt.title("Original sample")
-print("\t\t\tOriginal sample")
+    x, y = generate(l, r, h)
+    print("%12s:\t a = %lf, b = %lf" % ("Model sample", a, b))
+    plt.plot(x, a * x + b, 'b', label='Model sample')
 
-x, y = generate(l, r, h)
-print("%12s:\t a = %lf, b = %lf" % ("Model sample", a, b))
-plt.plot(x, a * x + b, 'b', label='Model sample')
+    plt.scatter(x, y)
 
-plt.scatter(x, y)
+    m, c = mnk(x, y)
+    print("%12s:\ta = %lf, b = %lf" % ("МНК", m, c))
+    plt.plot(x, m*x + c, 'r', label='МНК')
 
-m, c = mnk(x, y)
-print("%12s:\ta = %lf, b = %lf" % ("МНК", m, c))
-plt.plot(x, m*x + c, 'r', label='МНК')
+    m, c = mnm(x, y)
+    # print("%12s:\ta = %lf, b = %lf" % ("МНМ", m, c))
+    plt.plot(m, c, 'g', label='МНМ')
 
-m, c = mnm(x, y)
-plt.plot(m, c, 'g', label='МНМ')
+    plt.legend()
 
-plt.legend()
+    print("\n")
+    plt.subplot(122)
+    plt.title("Distorted sample")
+    print("\t\t\tDistorted sample")
 
-print("\n")
-plt.subplot(122)
-plt.title("Distorted sample")
-print("\t\t\tDistorted sample")
+    x, y = generate(l, r, h)
+    y = perturbation(y)
 
-x, y = generate(l, r, h)
-y = perturbation(y)
+    print("%12s:\ta = %lf, b = %lf" % ("Model sample", a, b))
+    plt.plot(x, a * x + b, 'b', label='Model sample')
+    plt.scatter(x, y)
 
-print("%12s:\ta = %lf, b = %lf" % ("Model sample", a, b))
-plt.plot(x, a * x + b, 'b', label='Model sample')
-plt.scatter(x, y)
+    m, c = mnk(x, y)
+    print("%12s:\ta = %lf, b = %lf" % ("МНК", m, c))
+    plt.plot(x, m*x + c, 'r', label='МНК')
 
-m, c = mnk(x, y)
-print("%12s:\ta = %lf, b = %lf" % ("МНК", m, c))
-plt.plot(x, m*x + c, 'r', label='МНК')
+    xx, yy = mnm(x, y)
+    # print("%12s:\ta = %lf, b = %lf" % ("МНМ", xx, yy))
+    plt.plot(xx, yy, 'g', label='МНМ')
 
-xx, yy = mnm(x, y)
-plt.plot(xx, yy, 'g', label='МНМ')
-
-plt.legend()
-plt.show()
+    plt.legend()
+    plt.show()

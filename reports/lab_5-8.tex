@@ -1,0 +1,685 @@
+%%%
+% set up document type
+%%%
+\documentclass[12pt]{report}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
+\usepackage{hyperref}
+
+\usepackage{amssymb,latexsym} 
+\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hhline}
+
+\usepackage{color,colortbl}
+
+%%%
+% document settings
+%%%
+\setcounter{tocdepth}{4}
+% \graphicspath{ {./pic/} }
+
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
+\tocsection
+\tocfile{\listfigurename}{lof}
+\endgroup}
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
+\tocsection
+\tocfile{\listtablename}{lot}
+\endgroup}
+
+%******************************************************************
+%******************************************************************
+\begin{document}
+
+\begin{titlepage}
+	\center
+		Санкт-Петербургский Политехнический 
+		университет Петра Великого
+		Институт прикладной математики и механики
+		\\ \textbf{Кафедра «Прикладная математика»}
+
+	\vfill ~
+	\textbf{
+		\\ \large СВОДНЫЙ ОТЧЁТ №2
+	}
+	\\	по дисциплине 
+	\\	"Математическая статистика"
+
+	\vfill ~
+
+	Выполнил студент гр. \textbf{33631/1} \\
+	\textbf{Лансков.Н.В.} \\ 
+
+\vfill
+
+{\large}	Санкт-Петербург
+\\ 2019
+\end{titlepage}
+
+%%%
+% Table of conetnts 
+%%%
+
+\tableofcontents 
+\newpage
+\listoffigures
+\newpage
+\listoftables
+\newpage
+
+\chapter{Лабораторная работа №5}
+%%%
+% Text
+%%%
+\section{Постановка задачи}
+Необходимо построить выборки объёмом $20, 60, 100, 1000$ для двумерного нормального распределения с коэффициентами корреляции $\rho = 0, 0.5, 0.9$
+
+Вычислить коэффициент корреляции Пирсона, Спирмана и квадрантный коэффициент корреляции для каждой выборки. Эти же вычисления повторить для смеси двумерных нормальных распределений \cite{mix}: 
+\begin{equation}
+    f(x,y) = 0.9N(x,y,0,0,1,1,0.9)+0.1N(x,y,0,0,10,10,-0.9)
+\end{equation}
+На графике изобразить точки выборки и эллипс равновероятности.
+
+\section{Теория}
+
+\begin{enumerate}
+    \item Двумерное нормально распределение \cite{5_1}:
+        \begin{equation}
+        N(x,y,0,0,1,1,\rho) = \frac{1}{2\pi\sqrt{1-\rho^2}}e^{-\frac{1}{2(1-\rho^2)}(x^2-2\rho x y+y^2)} \label{dnd}
+        \end{equation}
+    
+    \item Коэффициент корреляции Пирсона \cite{5_2}:
+        \begin{equation}
+        r_{xy} = \left(\sum\limits_{i=1}^n(x_i-\overline{x})(y_i-\overline{y})\right)\left(\sum\limits_{i=1}^n(x_i-\overline{x})^2\sum\limits_{i=1}^n(y_i-\overline{y})^2\right)^{-\frac{1}{2}} \label{ccp}
+        \end{equation}
+    \item Коэффициент корреляции Спирмана \cite{5_3}:
+        \begin{equation}
+        \rho_n = 1 -  \frac{6}{n^3-n}\sum\limits_{i=1}^n d_i^2\label{ccs}
+        \end{equation}
+        
+    \item Квадрантный коэффициент корреляции \cite{5_4}:
+        \begin{equation}
+        \overset{\wedge}{q} = \frac{1}{n}\sum\limits_{i=1}^n sign(x_i-med\;x)sign(y_i-med\;y)\label{qcc}
+        \end{equation}
+\end{enumerate}
+
+\section{Реализация}
+Работы была выполнена на языке $Python 3.7.$
+Для генерации выборок использовался модуль \cite{numpy}.
+Для построения графиков использовалась библиотека matplotlib \cite{plotlib}.
+Функции распределения обрабатывались при помощи библиотеки scipy.stats \cite{skp}
+
+\section{Результаты}
+
+\begin{figure}[H]
+    \centering
+    \caption{Графики двумерного нормального распределения\eqref{dnd} при $p=0.0$ }
+    \includegraphics[scale = 0.6]{../lab_5/pic/p00.png} 
+    \label{fig:dis_norm_gis0}
+\end{figure}
+\begin{table}[H]
+\caption{Результаты для двумерного нормального распределения \eqref{dnd} при $p=0.0$}
+\label{tab:my_label1}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hhline{----~----}
+\multicolumn{4}{|c|}{Normal  $n=20,\;  p=0.0$} &\multirow{11}{*}{$\cdot$} & \multicolumn{4}{c|} {Normal  $n=60,\;  p=0.0$}
+\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad &   & & Pearson     &Spearman    &Quad        \\    
+\hhline{----~----}
+		E   &-0.05816&-0.07609&-0.10000&  &E   &0.01971&0.01170&0.00000\\
+\hhline{----~----}
+		$E^2$ &0.07798&0.08066&0.06000&  &$E^2$ &0.01806&0.01560&0.00978\\
+\hhline{----~----}
+		D   &0.07460&0.07487&0.05000&  &D   &0.01767&0.01546&0.00978\\\rowcolor{codegray}
+\hhline{----~----} 
+\multicolumn{9}{c}{}\\
+\hhline{----~----}
+\multicolumn{4}{|c|}{Normal  $n=100,\;  p=0.0$} & & \multicolumn{4}{c|}{Normal  $n=1000,\;  p=0.0$}\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad&  & &Pearson     &Spearman    &Quad     \\
+\hhline{----~----}
+		E   &0.01742&0.00400&0.01200& &E   &0.00909&0.00753&0.00360\\
+\hhline{----~----}
+		$E^2$ &0.00723&0.00366&0.00272& &$E^2$ &0.00172&0.00146&0.00076\\
+\hhline{----~----}
+		D   &0.00693&0.00365&0.00258& &D   &0.00163&0.00140&0.00074\\
+\hhline{----~----}
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+\vspace{-1cm}
+\begin{figure}[H]
+    \centering
+    \caption{Графики двумерного нормального распределения\eqref{dnd} при $p=0.5$ }
+    \includegraphics[scale = 0.6]{../lab_5/pic/p05.png}
+    \label{fig:dis_norm_gis1}
+\end{figure}
+\begin{table}[H]
+\caption{Результаты для двумерного нормального распределения \eqref{dnd} при $p=0.5$}
+\label{tab:my_label2}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hhline{----~----}
+\multicolumn{4}{|c|}{Normal  $n=20,\;  p=0.5$} &\multirow{11}{*}{$\cdot$} & \multicolumn{4}{c|} {Normal  $n=60,\;  p=0.5$}
+\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad &   & & Pearson     &Spearman    &Quad        \\    
+\hhline{----~----}
+		E   &0.51442&0.45579&0.36000&  &E   &0.55504&0.52874&0.34000\\
+\hhline{----~----}
+		$E^2$ &0.27969&0.23585&0.16000&  &$E^2$ &0.31584&0.29272&0.12756\\
+\hhline{----~----}
+		D   &0.01506&0.02811&0.03040&  &D   &0.00777&0.01315&0.01196\\\rowcolor{codegray}
+\hhline{----~----} 
+\multicolumn{9}{c}{}\\
+\hhline{----~----}
+\multicolumn{4}{|c|}{Normal  $n=100,\;  p=0.5$} & & \multicolumn{4}{c|}{Normal  $n=1000,\;  p=0.5$}\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad&  & &Pearson     &Spearman    &Quad     \\
+\hhline{----~----}
+		E   &0.48316&0.47127&0.28800& &E   &0.51152&0.49627&0.34560\\
+\hhline{----~----}
+		$E^2$ &0.23773&0.22671&0.09952& &$E^2$ &0.26231&0.24699&0.11993\\
+\hhline{----~----}
+		D   &0.00429&0.00461&0.01658& &D   &0.00066&0.00070&0.00049\\
+\hhline{----~----}
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+\vspace{-1cm}
+\begin{figure}[H]
+    \centering
+    \caption{График двумерного нормального распределения \eqref{dnd} при $p=0.9$ }
+    \includegraphics[scale = 0.6]{../lab_5/pic/p09.png} 
+    \label{fig:dis_norm_gis2}
+\end{figure}
+\begin{table}[H]
+\caption{Результаты для двумерного нормального распределения \eqref{dnd} при $p=0.9$}
+\label{tab:my_label3}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hhline{----~----}
+\multicolumn{4}{|c|}{Normal  $n=20,\;  p=0.9$} &\multirow{11}{*}{$\cdot$} & \multicolumn{4}{c|} {Normal  $n=60,\;  p=0.9$}
+\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad &   & & Pearson     &Spearman    &Quad        \\    
+\hhline{----~----}
+		E   &0.89459&0.85218&0.58000&  &E   &0.90863&0.89374&0.76667\\
+\hhline{----~----}
+		$E^2$ &0.80225&0.72999&0.37200&  &$E^2$ &0.82605&0.80025&0.59689\\
+\hhline{----~----}
+		D   &0.00196&0.00378&0.03560&  &D   &0.00044&0.00147&0.00911\\\rowcolor{codegray}
+\hhline{----~----} 
+\multicolumn{9}{c}{}\\
+\hhline{----~----}
+\multicolumn{4}{|c|}{Normal  $n=100,\;  p=0.9$} & & \multicolumn{4}{c|}{Normal  $n=1000,\;  p=0.9$}\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad&  & &Pearson     &Spearman    &Quad     \\
+\hhline{----~----}
+		E   &0.90133&0.89249&0.72800& &E   &0.89728&0.88880&0.71800\\
+\hhline{----~----}
+		$E^2$ &0.81259&0.79674&0.53248& &$E^2$ &0.80514&0.79000&0.51568\\
+\hhline{----~----}
+		D   &0.00019&0.00021&0.00250& &D   &0.00004&0.00004&0.00015\\
+\hhline{----~----}
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+
+
+\vspace{-1cm}
+\begin{figure}[H]
+    \centering
+    \caption{Графики смеси двумерных нормальных распределений }
+    \includegraphics[scale = 0.6]{../lab_5/pic/2p.png} 
+    \label{fig:dis_norm_gis4}
+\end{figure}
+\begin{table}[H]
+\caption{Результаты для смеси двумерных нормальных распределений}
+\label{tab:my_label4}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hhline{----~----}
+\multicolumn{4}{|c|}{NormalMix  $n=20,\;p_1 = 0.9,\;  p_2=-0.9$} &\multirow{11}{*}{$\cdot$} & \multicolumn{4}{c|} {NormalMix  $n=60,\; p_1 = -0.9,\;  p_2=-0.9$}
+\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad &   & & Pearson     &Spearman    &Quad        \\    
+\hhline{----~----}
+		E   &0.33257&0.30331&0.18000&  &E   &0.41462&0.39782&0.21333\\
+\hhline{----~----}
+		$E^2$ &0.15235&0.12311&0.06000&  &$E^2$ &0.17848&0.16576&0.05422\\
+\hhline{----~----}
+		D   &0.04175&0.03111&0.02760&  &D   &0.00656&0.00749&0.00871\\\rowcolor{codegray}
+\hhline{----~----} 
+\multicolumn{9}{c}{}\\
+\hhline{----~----}
+\multicolumn{4}{|c|}{NormalMix  $n=100,\;p_1=0.9,\;  p_2=-0.9$} & & \multicolumn{4}{c|}{NormalMix  $n=1000,\;p_1=0.9,\;  p_2=-0.9$}\\
+\hhline{----~----}
+&Pearson     &Spearman    &Quad&  & &Pearson     &Spearman    &Quad     \\
+\hhline{----~----}
+		E   &0.42534&0.41706&0.31600& &E   &0.39241&0.37760&0.26000\\
+\hhline{----~----}
+		$E^2$ &0.18980&0.18042&0.10672& &$E^2$ &0.15440&0.14301&0.06812\\
+\hhline{----~----}
+		D   &0.00889&0.00648&0.00686& &D   &0.00042&0.00043&0.00052\\
+\hhline{----~----}
+\end{tabular}
+\end{center}
+\end{table}
+
+\newpage
+\section{Выводы}
+
+По таблицам \ref{tab:my_label1}, \ref{tab:my_label2}, \ref{tab:my_label3}, \ref{tab:my_label4}, видно, что, при увеличении объёма выборки, подсчитанные коэффициенты корреляции стремятся к теоретическим.
+
+Ближе всех к данному коэффициенту корреляции находится коэффициент Пирсона.
+
+По графикам видно, что при уменьшении корреляции эллипс равновероятности стремится к окружности, а при увеличении растягивается.
+
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_5}
+
+\chapter{Лабораторная работа №6}
+%%%
+% Text
+%%%
+\section{Постановка задачи}
+
+Необходимо найти оценки линейной регрессии $y_i=a+bx_i+e_i,$ используя $20$ точек отрезка $[-1.8;\;2]$ с равномерным шагом $0.2.$ Ошибку $e_i$ считать нормально распределённой с параметрами $(0,\;1).$ В качестве эталонной зависимости взять $y_i=2+2x_i+e_i.$ При построении оценок коэффициентов использовать два критерия: критерий наименьших квадратов и критерий наименьших модулей.
+
+Проделать то же самое для выборки, у которой в значении $y_1$ и $y_{20}$ вносятся возмущения $10$ и $-10$ соответственно.
+
+\section{Теория}
+
+Простая линейная регрессия \cite{lin_reg}:
+\begin{equation}
+    y_i=ax_i+b+e_i,\;i=\overline{1,n},\hfill
+\end{equation}
+
+где $x_i\;\--$ заданные числа, $y_i\;\--$ наблюдаемые значения, $e_i\;\--$ независимы и нормально распределены, $a$ и $b\;\--$ неизвестные параметры, подлежащие оцениванию.
+
+\subsection{Метод наименьших квадратов}
+
+Критерий $\--$ минимизация функции \cite{MNK}:
+\begin{equation}
+    Q(a,b)=\sum\limits_{i=1}^n(y_i-ax_i-b)^2\to \min\hfill
+\end{equation}
+
+Оценка $\overset{\wedge}{a}$ и $\overset{\wedge}{b}$ параметров $a$ и $b,$ в которых достигается минимум $Q(a,b),$ называются МНК-оценками. В случае линейной регрессии их можно вычислить из формулы \cite{6_3}:
+\begin{equation}
+    \begin{cases}
+    \overset{\wedge}{a} = \frac{\overline{x y}-\overline{x}\overline{y}}{\overline{x^2}-\overline{x}^2}\\
+    \overset{\wedge}{b} = \overline{y}-\overset{\wedge}{a}\overline{x}
+    \end{cases}\hfill
+\end{equation}
+
+Метод наименьших квадратов является несмещённой оценкой.
+
+МНК чувствителен к выбросам (т.к. в вычислении используется выборочное среднее значение величин крайне неустойчивое к редким, но большим по величине выбросам)
+
+\subsection{Метод наименьших модулей}
+Критерий наименьших модулей – заключается в минимизации следующей функции \cite{6_4}:
+\begin{equation}
+    M(a,b) = \sum\limits_{i=1}^n\vert y_i-ax_i-b\vert\to\min\hfill
+\end{equation}
+
+МНМ-оценки обладают свойством робастности
+Но на практике решение реализуется только численно
+
+\section{Реализация}
+
+Работы была выполнена на языке $Python 3.7.$
+Для генерации выборок использовался модуль \cite{numpy}.
+Для построения графиков использовалась библиотека matplotlib \cite{plotlib}.
+Функции распределения обрабатывались при помощи библиотеки scipy.stats \cite{skp}
+
+\section{Результаты}
+
+
+%\vspace{-2cm}
+\begin{figure}[H]
+    \centering
+    \caption{Графики линейной регрессии}
+    \includegraphics[scale = 0.6]{../lab_6/pic/plt.png} 
+    \label{fig:reg}
+\end{figure}
+
+\begin{table}[H]
+\caption{Таблица оценок коэффициентов линейной регрессии без возмущёний}
+\label{tab:my_label1}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|}
+\hline
+& $\overset{\wedge}{a}$ & $\overset{\wedge}{b}$\\
+\hline
+Sample &2.000&2.000\\
+\hline
+МНК &2.08&1.64\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[H]
+\caption{Таблица оценок коэффициентов линейной регрессии с возмущёниями}
+\label{tab:my_label2}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|}
+\hline
+& $\overset{\wedge}{a}$ & $\overset{\wedge}{b}$\\
+\hline
+Sample &2.000&2.000\\
+\hline
+МНК &0.83 &1.97\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\section{Выводы}
+По графику \ref{fig:reg} видно, что оба метода дают хорошую оценку коэффициентов линейной регрессии, если нет выбросов. Однако выбросы сильно влияют на оценки по МНК.
+
+Выбросы мало влияют на оценку по МНМ, но ценой за это является б\'oльшая по сравнению с МНК сложность вычисления.
+
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_6}
+
+\chapter{Лабораторная работа №7}
+%%%
+% Text
+%%%
+\section{Постановка задачи}
+
+Необходимо сгенерировать выборку объемом $100$ элементов для нормального распределения $N(x;0,1).$ По сгенерированной выборке оценить параметры $\mu$ и $\sigma$ нормального закона методом максимального правдоподобия. В качестве основной гипотезы $H_0$ будем считать, что сгенерированное распределение имеет вид $N(x,\overset{\wedge}{\mu},\overset{\wedge}{\sigma} ).$ Проверить основную гипотезу, используя критерий согласия $\chi$. В качестве ровня значимости взять $\alpha=0,05.$ Привести таблицу вычислений $\chi^2.$
+
+
+\section{Теория}
+\subsection{Метод максимального правдоподобия}
+Метод максимального правдоподобия $\--$ метод оценивания неизвестного параметра путём максимимзации функции правдоподобия.
+\begin{equation}
+    \overset{\wedge}{\theta}_{\text{МП}}=argmax \mathbf{L}(x_1,x_2,\ldots,x_n,\theta)
+\end{equation}
+
+Где $\mathbf{L}$ это функция правдоподобия, которая представляет собой совместную плотность вероятности независимых случайных величин $X_1,x_2,\ldots,x_n$ и является функцией неизвестного параметра $\theta$
+\begin{equation}
+    \mathbf{L} = f(x_1,\theta)\cdot f(x_2,\theta)\cdot\cdots\cdot f(x_n,\theta)
+\end{equation}
+Оценкой максимального правдоподобия будем называть такое значение $\overset{\wedge}{\theta}_{\text{МП}}$ из множества допустимых значений параметра $\theta,$ для которого функция правдоподобия принимает максимальное значение при заданных $x_1,x_2,\ldots,x_n.$
+
+Тогда при оценивании математического ожидания $m$ и дисперсии $\sigma^2$ нормального распределения $N(m,\sigma)$ получим:
+\begin{equation}
+    \ln(\mathbf{L})=-\frac{n}{2}\ln(2\pi)-\frac{n}{2}\ln\left(\sigma^2\right)-\frac{1}{2\sigma^2}\sum\limits_{i=1}^n(x_i-m)^2
+\end{equation}
+
+\subsection{Критерий согласия Пирсона}
+Разобьём генеральную совокупность на $k$ неперсекающихся подмножеств $\Delta_1, \Delta_2,\ldots, \Delta_k,\;\Delta_i = (a_i,a_{i+1}],$ $p_i = P(X\in\Delta_i),\;i=1,2,\ldots,k\; \--$ вероятность того, что точка попала в $i$ый промежуток.
+
+Так как генеральная совокупность это $\mathbb{R},$ то крайние промежутки будут бесконечными: $\Delta_1=(-\infty,a_1],\;\Delta_k=(a_k,\infty),\;p_i = F(a_i)-F(a_{i-1})$
+
+$n_i\;\--$ частота попадания выборочных элементов в $\Delta_i,\;i=1,2,\ldots,k.$
+
+В случае справедливости гипотезы $H_0$ относительно частоты $\frac{n_i}{n}$ при больших $n$ должны быть близки к $p_i,$ значит в качестве меры имеет смысл взять: 
+\begin{equation}
+    Z = \sum\limits_{i=1}^k\frac{n}{p_i}\left(\frac{n_i}{n}-p_i\right)^2
+\end{equation}
+Тогда
+\begin{equation}
+    \chi^2_B=\sum\limits_{i=1}^k\frac{n}{p_i}\left(\frac{n_i}{n}-p_i\right)^2=\sum\limits_{i=1}^k\frac{(n_i-np_i)^2}{np_i}
+\end{equation}
+Для выполнения гипотезы $H_0$ должны выполняться следующие условия \cite{7_2}:
+\begin{equation}
+    \chi_B^2 < \chi_{1-\alpha}^2(k-1)
+\end{equation}
+где $\chi_{1-\alpha}^2(k-1)\;\--$ квантиль распределения $\chi^2$ с $k-1$ степенями свободы порядка $1-\alpha,$ где $\alpha$ заданный уровень значимости.
+
+\section{Реализация}
+Работы была выполнена на языке $Python 3.7.$
+Для генерации выборок использовался модуль \cite{numpy}.
+Для построения графиков использовалась библиотека matplotlib \cite{plotlib}.
+Функции распределения обрабатывались при помощи библиотеки scipy.stats \cite{skp}
+
+
+\section{Результаты}
+\subsection{Метод максимального правдоподобия}
+
+При подсчете оценок параметров закона нормального распределения методом максимального правдоподобия были получены следующие значения:
+\begin{equation}
+\begin{split}
+    &\overset{\wedge}{m}_{\text{МП}} = -0.1167\\
+   &  \overset{\wedge}{\sigma}^2_{\text{МП}} = 0.9859
+\end{split}
+\end{equation}
+\subsection{Критерий Пирсона}
+\begin{table}[H]
+\caption{Таблица вычислений $\chi^2$}
+\label{tab:my_label1}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+ i & $\Delta_i$ & $n_i$ & $p_i$ & $np_i$ & $n_i-np_i$ & $\frac{(n_i-np_i)^2}{np_i}$\\
+\hline
+1&	 $(-\infty, -1.7100]$ &	4  &0.0530& 5.3025& -1.3025& 0.3199\\
+\hline
+2& (-1.7100, -0.8964)& 16& 0.1615& 16.1464& -0.1464& 0.0013\\
+\hline
+3& (-0.8964, -0.0828)& 35& 0.2992& 29.9200& 5.0800& 0.8625\\
+\hline
+4& (-0.0828, 0.7308)& 26& 0.2913& 29.1302& -3.1302& 0.3364\\
+\hline
+5& $(0.7308, \infty)$& 19& 0.1950& 19.5009& -0.5009& 0.0129\\
+\hline
+$\sum$&&		100&	1&	100&0&1.5330	\\
+
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+$$\chi_B^2= 1.5330$$
+
+\section{Выводы}
+
+В данной работе получено значение критерия согласия Пирсона $\chi_B^2 = 1.5330.$ Табличное значение квантиля  $\chi^2_{1-\alpha}(k-1)=\chi^2_{0.95}(4) = 9,4877$ \cite{chi_quant}.
+
+Значит $\chi_B^2 < \chi^2_{0.95}(4),$ из этого следует, что основная гипотеза $H_0$ соотносится с выборкой на уровне $\alpha = 0.05.$
+
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_7}
+
+
+\chapter{Лабораторная работа №8}
+%%%
+% Text
+%%%
+\section{Постановка задачи}
+
+Для двух выборок $20$ и $100$ элементов, сгенерированных согласно нормальному закону $N(x,0,1),$ для параметров масштаба и положения построить асимптотически нормальные интервальные оценки на основе точечных оценок метода максимального правдоподобия и классические интервальные оценки на основе статистик $\chi^2$ и Стьюдента. В качестве параметра надёжности взять $\gamma = 0.95.$
+
+
+\section{Теория}
+
+Оценкой максимального правдоподобия для математического ожидания  является среднее арифметическое: $\mu=\frac{1}{n}\sum\limits_{i=1}^nx_i.$
+
+Оценка максимального правдоподобия для дисперсии вычисляется по формуле: $\sigma^2 = \frac{1}{n}\sum\limits_{i=1}^n(x_i-\overline{x})^2.$
+
+Доверительным интервалом или интервальной оценкой числовой характеристики или параметра распределения $\theta$ с доверительной вероятностью $\gamma$ называется интервал со случайными границами $(\theta_1,\theta_2),$ содержащий параметр $\theta$ с вероятностью $\gamma$ \cite{8_1}.
+
+Функция распределения Стьюдента \cite{8_2}:
+\begin{equation}
+    T = \sqrt{n-1}\frac{\overline{x}-\mu}{\delta}
+\end{equation}
+
+Функция плотности распределения $\chi^2$ \cite{8_3}:
+\begin{equation}
+    f(x) = \begin{cases}
+    0,&x\leq 0\\
+    \frac{1}{2^\frac{n}{2}\Gamma\left(\frac{n}{2}\right)}x^{\frac{n}{2}-1}e^{-\frac{x}{2}},& x>0
+    \end{cases}
+\end{equation}
+
+Интервальная оценка математического ожидания \cite{8_4}:
+\begin{equation}
+    P=\left(\overline{x}-\frac{\sigma t_{1-\frac{a}{2}}(n-1)}{\sqrt{n-1}}<\mu<\overline{x}+\frac{\sigma t_{1-\frac{a}{2}}(n-1)}{\sqrt{n-1}}\right) = \gamma,
+\end{equation}
+где $t_{1-\frac{a}{2}}\;\--$ квантиль распределения Стьюдента порядка $1-\frac{a}{2}.$
+
+Интервальная оценка дисперсии \cite{8_2}:
+\begin{equation}
+    P=\left(\frac{\sigma\sqrt{n}}{\sqrt{\chi^2_{1-\frac{a}{2}}(n-1)}}<\sigma<\frac{\sigma\sqrt{n}}{\sqrt{\chi^2_\frac{a}{2}(n-1)}}\right) = \gamma,
+\end{equation}
+где $\chi_{1-\frac{a}{2}}^2,\;\chi_\frac{a}{2}^2\;\--$ квантили распределения Стьюдента порядков $1-\frac{a}{2}$ и $\frac{a}{2}$ соответственно.
+
+Асимптотическая интервальная оценка математического ожидания \cite{8_2}:
+\begin{equation}
+    P = \left(\overline{x}-\frac{\sigma u_{1-\frac{a}{2}}}{\sqrt{n}}<\mu<\overline{x}+\frac{\sigma u_{1-\frac{a}{2}}}{\sqrt{n}}\right)=\gamma,
+\end{equation}
+где $u_{1-\frac{a}{2}}\;\--$ квантиль нормального распределения $N(x,0,1)$ порядка $1-\frac{a}{2}.$
+
+
+\section{Реализация}
+Работы была выполнена на языке $Python 3.7.$
+Для генерации выборок использовался модуль \cite{numpy}.
+Для построения графиков использовалась библиотека matplotlib \cite{plotlib}.
+Функции распределения обрабатывались при помощи библиотеки scipy.stats \cite{skp}
+
+
+\section{Результаты}
+
+\begin{table}[H]
+\caption{Результаты}
+\label{tab:my_label1}
+\begin{center}
+\vspace{5mm}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Метод & $n$&$\mu$&$\sigma$\\
+\hline
+&$20$&	$[-0.64221, 0.33978]$&		$[0.94061, 1.80746]$ \\
+\cline{2-4}
+\raisebox{1.5ex}[0cm][0cm]{На основе ММП}&100&	$[-0.21225, 0.25872]$&	$[1.036808, 1.37085]$\\
+\hline
+&20&	$[-0.69368, 0.39125]$&		$[0.98131, 1.49417]$ \\
+\cline{2-4}
+\raisebox{1.5ex}[0cm][0cm]{Асимптотический}&100	&$[-0.20821, 0.25468]$&	$[1.02183, 1.33989]$\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\section{Выводы}
+
+По полученным результатам видно, что оба подхода дают лучший результат на выборках большого объема. Если рассматривать результаты для выборки объема $n=20$ элементов, то видно, что интервал меньше и точнее в классической интервальной оценке.
+
+\section{Приложения}
+
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_8}
+
+%%%
+% Literature
+%%%
+\begin{thebibliography}{}
+	\bibitem{numpy}
+	Модуль numpy  -  
+	\url{https://physics.susu.ru/vorontsov/language/numpy.html}
+    
+    \bibitem{plotlib} 
+    Модуль matplotlib - 
+	\url{https://matplotlib.org/users/index.html}
+    
+    \bibitem{skp}
+    Модуль scipy - 
+    \url{https://docs.scipy.org/doc/scipy/reference/}
+    
+	\bibitem{mix}
+    \url{http://stu.sernam.ru/book\_stat3.php?id=55}
+    
+	\bibitem{5_1}
+	Двумерное нормальное распределение:\\
+	\url{https://en.wikipedia.org/wiki/Multivariate\_normal\_distribution}
+	
+	\bibitem{5_2}
+	Коэффициент корреляции Пирса: 
+	\url{http://statistica.ru/theory/koeffitsient-korrelyatsii/}
+	
+	\bibitem{5_3}
+	Коэффициент корреляции Спирмана: 
+	\url{http://economic-definition.com/Exchange\_Terminology/Koefficient\_korrelyacii\_Correlation\_coefficient\_\_eto.html}
+	
+	\bibitem{5_4} Квадрантный коэффициент корреляции: 
+	\url{https://www.researchgate.net/profile/Pavel\_Smirnov8/publication/		\do-316973167\_Robastnye\_metody\_i\_algoritmy\_ocenivania\_korrelacionnyh\_harakteristik\_dannyh\_na\_os\do-	nove\_novyh\_vysokoeffektivnyh\_i\_bystryh\_robastnyh\_ocenok\_masstaba/links/591b019d458515695282\do-8a52/Robastnye-metody-i-algoritmy-ocenivania-korrelacionnyh-harakteristik-dannyh-na-osnove-novyh-vysokoeffektivnyh-i-bystryh-robastnyh-ocenok-masstaba.pdf\#page=81}
+
+    
+	\bibitem{lin_reg}
+    \url{https://en.wikipedia.org/wiki/Linear\_regression}
+
+	\bibitem{MNK}
+	\url{http://www.cleverstudents.ru/articles/mnk.html}
+
+	\bibitem{6_3}
+	\url{Шевляков Г. Л. Лекции по математической статистике, 2019.}
+
+	\bibitem{6_4}
+	Вероятностные разделы математики. Учебник для бакалавров технических направлений. //Под ред. Максимова Ю.Д. - СПб.:"Иван Федоров 2001. - 592 с.
+
+
+	\bibitem{7_2}
+	\url{https://en.wikipedia.org/wiki/Pearson\%27s\_chi-squared\_test}
+
+	\bibitem{chi_quant}
+	Таблица значений $\chi^2$ -  
+	\url{https://ru.wikipedia.org/wiki/\%D0\%9A\%D0\%B2\%D0\%B0\%D0\%BD\%D1\%82\%D0\%B8\%D0\%BB\%D0\%\do-B8\_\%D1\%80\%D0\%B0\%D1\%81\%D0\%BF\%D1\%80\%D0\%B5\%D0\%B4\%D0\%B5\%D0\%BB\%D0\%B5\%D0\%\do-BD\%D0\%B8\%D1\%8F\_\%D1\%85\%D0\%B8-\%D0\%BA\%D0\%B2\%D0\%B0\%D0\%B4\%D1\%80\%D0\%B0\%D1\%\do-82\%D0\%B2\%D0\%B0\%D0\%B4\%D1\%80\%D0\%B0\%D1\%82}
+
+	\bibitem{8_1}
+	\url{https://en.wikipedia.org/wiki/Confidence\_interval}
+
+	\bibitem{8_2}
+	\url{https://en.wikipedia.org/wiki/Student\%27s\_t-distribution}
+
+	\bibitem{8_3}
+	\url{https://en.wikipedia.org/wiki/Chi-squared\_distribution}
+
+\end{thebibliography}
+
+\end{document}
+

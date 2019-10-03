@@ -120,7 +120,6 @@ def research(p, N, dist, ax):
     print()
 
 
-
 def draw(dist_name, p):
     plt.figure(p)
     sector = 1
