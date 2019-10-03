@@ -6,8 +6,7 @@ POISSON_PARAM = 2
 UNIFORM_LEFT = -numpy.sqrt(3)
 UNIFORM_RIGHT = numpy.sqrt(3)
 LAPLAS_COEF = numpy.sqrt(2)
-selection = [20, 60, 100]
-selection = numpy.sort(selection)
+selection = numpy.sort([20, 60, 100])
 
 
 def standart_normal(x):
@@ -121,7 +120,6 @@ def research(dist_type):
             print_table['E'].append(E(z))
             print_table['D'].append(D(z))
 
-        #print()
         print("%-10s;" %('n = %i' %num), end="")
         for pos_name in pos_char_name:
             print("%-12s;" % pos_name, end="")
