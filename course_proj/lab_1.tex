@@ -1,21 +1,51 @@
+%%%
+% set up document type
+%%%
 \documentclass[12pt]{article}
+
+%%%
+% declare all packages
+%%%
+\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry} 
+
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphics}
 \usepackage[english, russian]{babel}
-\usepackage{csquotes}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{longtable}
-\usepackage[left=25mm, top=20mm, right=25mm, bottom=30mm,nohead,nofoot]{geometry}
-\usepackage{verbatim}
+
+\usepackage{graphics, graphicx}
+
+\usepackage{url}
 \usepackage{hyperref}
 
+\usepackage{amssymb,latexsym} 
+\usepackage{MnSymbol}
+\usepackage{mathrsfs}
+
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hhline}
+
+\usepackage{color,colortbl}
+
+%%%
+% document settings
+%%%
 \setcounter{tocdepth}{4}
 \graphicspath{ {./pic/} }
 
-\addto\captionsrussian{\def\refname{6 \: Литература}}
+\renewcommand{\listoffigures}{\begingroup  % add number to list of graphics
+\tocsection
+\tocfile{\listfigurename}{lof}
+\endgroup}
+\renewcommand{\listoftables}{\begingroup  % add number to list of tables
+\tocsection
+\tocfile{\listtablename}{lot}
+\endgroup}
 
+%******************************************************************
+%******************************************************************
 \begin{document}
 
 \begin{titlepage}
@@ -27,10 +57,7 @@
 
 	\vfill ~
 	\textbf{
-		\\ \large ЛАБОРАТОРНАЯ РАБОТА №1
-		\\	\normalsize	
-			Сравнение распределений выборок для различных 
-		\\	функций распределения с теоретическими оценками
+		\\ \large ЛАБОРАТОРНАЯ РАБОТА №2
 	}
 	\\	по дисциплине 
 	\\	"Математическая статистика"
@@ -49,113 +76,117 @@
 %%%
 % Table of conetnts 
 %%%
-% \settocdepth{chapter}
-\tableofcontents
-\listoffigures
-\pagebreak
 
-% \setcounter{chapter}{1}
+\tableofcontents 
+\newpage
+\listoffigures
+\newpage
+% \listoftables
+% \newpage
 
 %%%
 % Text
 %%%
 \section{Постановка задачи}
-Сравнить графики распределения выборок случайных чисел, сгенерированных при помощи различных функций распределения, с теоретическими кривыми распределения для выборок мощностями 10, 50, 100.
+Любыми средствами сгенерировать выборки размеров $20,$ $60,$ $100$ элементов для $5$ти распределений. Для каждой выборки вычислить $\overline{x},\; med\; x,\; Z_R,\; Z_Q,\; Z_{tr},$ при $r = \frac{n}{4}.$
+
+Распределения:
+\begin{enumerate}
+\item Стандартное нормальное распределение
+\item Стандартное распределение Коши
+\item Распределение Лапласа с коэффициентом масштаба $\sqrt{2}$ и нулевым коэффициентом сдвига.
+\item Равномерное распределение на отрезке $\left[-\sqrt{3}, \sqrt{3}\right]$
+\item Распределение Пуассона со значением матожидания равным двум.
+\end{enumerate}
 
 \section{Теория}
-Рассмотрим использованные распределения подробней. Общий вид распределений можно проверить, например, тут: \cite{wiki}
 
-\subsection{Нормальное распределение}
+\begin{enumerate}
 
-\begin{equation}
-f(x)= \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
-\end{equation}
-
-\subsection{Распределение Коши}
+\item{Выборочное среднее \cite{average}}
 
 \begin{equation}
-f(x)= \frac{1}{\pi}\bigg( \frac{1}{x^2 + 1}\ \bigg)
+\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i \hfill \label{eqn:average}
 \end{equation}
 
-\subsection{Распределение Лапласа}
+\item{Выборочная медиана \cite{med}}
+
+\begin{equation}
+med\; x = \begin{cases}
+x_{k+1}, & n = 2k+1\\
+\frac{1}{2}\left(x_k+x_{k+1}\right), & n = 2k
+\end{cases} \hfill  \label{eqn:med}
+\end{equation}
+
+\item{Полусумма экстремальных значений \cite{mean_extr}}
 
 \begin{equation} 
-f(x)= \frac{1}{\sqrt{2}}e^{-\sqrt{2}x}
+Z_R = \frac{1}{2}\left(x_1+x_n\right) \hfill  \label{eqn:mean_extr}
 \end{equation}
 
-\subsection{Равномерное распределение}
+\item{Полусумма квартилей \cite{quartiles}}
 
 \begin{equation}
-      f(x) = 
-      \begin{cases}
-      \frac{1}{2\sqrt{3}}, \quad |x| \leq \sqrt{3} \\
-      0, \qquad |x| > \sqrt{3}
-      \end{cases}
+Z_Q = \frac{1}{2}\left(Z_{\frac{1}{4}}+Z_{\frac{3}{4}}\right) \hfill  
+\label{eqn:quartiles}
 \end{equation}
 
-\subsection{Распределение Пуассона}
+\item{Усечённое среднее \cite{cut_mean}}
 
 \begin{equation}
-P(7) = \frac{7^k}{k!}e^{-7}
+Z_{tr} = \frac{1}{n - 2r}\sum_{i=r+1}^{n-r} x_i \hfill  \label{eqn:cut_mean}
 \end{equation}
 
-\pagebreak
+\end{enumerate}
 
 \section{Реализация}
-Выполнено средствами \textit{python} c применением библиотек \textit{numpy, scipy} and \textit{matplotlib}
+Выполнено средствами \textit{python} c применением библиотеки \textit{numpy}\cite{numpy}
 
 \section{Результаты}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{normal.png} 
-\caption{Нормальное распределение}
-\end{center}
-\end{figure}
+\section{Выводы}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{caushi.png}
-\caption{Распределение Коши}
-\end{center}
-\end{figure}
+\par В процессе работы вычислены значения характеристик положения для определённых распределений на выборках фиксированной мощности и получено следующее ранжирование характеристик положения:
 
-\pagebreak
+\begin{enumerate}
+    \item Стандартное нормальное распределение $$\overline{x} < Z_{tr} < Z_Q < med\;x < Z_R$$
+    
+    \item Стандартное распределение Коши $$med\;x < Z_Q < Z_{tr} < \overline{x} < Z_R$$
+    
+    \item Распределение Лапласа (коэффициент масштаба $\sqrt{2}$ коэффициент сдвига равен нулю) $$med\;x < Z_{tr} < \overline{x} < Z_Q < Z_R$$
+    
+    \item Равномерное распределение на отрезке $\left[-\sqrt{3},\sqrt{3}\right]$ $$Z_R < \overline{x} < Z_{tr} < Z_Q < med\;x$$
+    
+    \item Распределение Пуассона (значение мат ожидания равно $3$) $$\overline{x} < Z_{tr} < Z_Q < med\;x < Z_R$$
+    
+\end{enumerate}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{laplace.png}
-\caption{Распределение Лапласа}
-\end{center}
-\end{figure}
+\section{Приложения}
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{uniform.png}
-\caption{Равномерное распределение}
-\end{center}
-\end{figure}
+Исходники: \url{https://github.com/LanskovNV/math_statistics/tree/master/lab_2}
 
-\pagebreak
+\newpage
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=\textwidth]{poisson.png}
-\caption{Распределение Пуассона}
-\end{center}
-\end{figure}
-
-\section{Обсуждение}
-
-\subsection{Выводы}
-В результате работы были построены графики для трёх выборок разных мощностей для каждого из рассматриваемых распределений. Из графиков видно, что с увеличением мощности выборки, диаграмма всё менее отклоняется от теоретического значения. Это иллюстрирует факт того, что при стремлении можности выборки к бесконечности диаграмма выборки будет оцениваться теоретической кривой с любой интересующей нас точностью.
-\par
-Конечно, за счёт того что размеры выборок довольно малы, то могут наблюдаться некоторые "выбросы" в конкретных точках (особенно заметно на самых левых графиках для мощности 10). Это объясняется тем, что значения выборки генерируются случайным образом и данных на такой мощности для построения теоретических оценок оказывается недостаточно.
-
-\addcontentsline{toc}{section}{6 \: Литература}
- 
+%%%
+% Literature
+%%%
 \begin{thebibliography}{}
-    \bibitem{wiki} \url{https://www.wikipedia.org/}
+    \bibitem{average}  
+    Выборочное среднее  -  https://en.wikipedia.org/wiki/Sample\_mean\_and\_covariance
+    
+    \bibitem{med}  
+    Выборочная медиана  -  http://femto.com.ua/articles/part\_1/2194.html
+    
+    \bibitem{mean_extr}  
+    Полусумма экстремальных значений  -  https://studopedia.info/8-56888.html
+    
+    \bibitem{quartiles}  
+    Квартили  -  https://studfiles.net/preview/2438125/page:13/
+    
+    \bibitem{cut_mean}  Усечённое среднее  -  https://ole-olesko.livejournal.com/15773.html
+    
+    \bibitem{numpy}  Модуль numpy  -  https://physics.susu.ru/vorontsov/language/numpy.html
 \end{thebibliography}
 
 \end{document}
+
