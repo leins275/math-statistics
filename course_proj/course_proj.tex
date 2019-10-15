@@ -29,6 +29,7 @@
 
 \usepackage{color,colortbl}
 
+% \usepackage{verbatim}
 %%%
 % document settings
 %%%
@@ -151,18 +152,62 @@ r = r_{XY} = \dfrac{\dfrac{1}{n}\Sigma{(x_{i} - \overline{x})(y_{i} - \overline{
 \includegraphics[scale = 0.8]{plot3.png} 
 \end{figure}
 
-Сдвиг по времени, на котором коэффициент корелляции достигает максимального значения.
-$$ shift(max) = [168, 169] $$
+Значение сдвига по времени, на котором Взаимнокорреляционная функция \cite{wiki} достигает максимума.
+$$ lag_{max} = 5 $$
 
 \begin{figure}[H]
-\caption{Гистограмма (коэффициент корреляции / сдвиг по времени)}
-\includegraphics[scale = 1]{plot4.png} 
+\caption{Гистограмма взаимнокорреляционной функции между севером и югом.}
+\includegraphics[scale = 1]{plot5.png} 
 \end{figure}
 
 \section{Приложения}
 
-\textbf{Исходники:} \\
+\subsection{Исходники} 
 \url{https://github.com/LanskovNV/math_statistics/tree/master/course_proj}
+
+\newpage
+\subsection{Исходный код для работы с взаимнокорреляционной функцией}
+\begin{verbatim}
+% Включение пакета signal для вычисления xcorr
+% pkg load signal;
+
+% Считывание данных светимости
+file_name = '37000_SPD16x16.mat';
+data = load(file_name);
+
+[cnt_rows, cnt_cols, cnt_means] = size(data.sign_bb(:, :, :));
+
+B = zeros(cnt_rows, cnt_cols, cnt_means);
+for k = 1:cnt_means
+  B(:, :, k) = rot90(data.sign_bb(:, :, k), 2);
+end
+
+dt = cell2mat(data.Data(1, 2)) * 1e-3;
+t_s = cell2mat(data.Data(2, 2))
+
+% Сопоставление индексов с временной шкалой
+t_e = t_s + (cnt_means - 1) * dt;
+t = t_s:dt:t_e;  
+
+% Выделение областей светимости выше и ниже экватора
+B_up = B(cnt_rows / 2 + 1:cnt_rows, :, :);
+B_low = B(1:cnt_rows / 2, :, :);
+
+% Нахождение светимостей областей выше и ниже экавтора
+sum_B_up = sum(sum(B_up));
+sum_B_up = sum_B_up(:)';
+sum_B_low = sum(sum(B_low));
+sum_B_low = sum_B_low(:)';
+
+%%%
+% Вычисление функции автокорреляции между севером и югом
+%%%
+
+[corr_func, lags] = xcorr(sum_B_low, sum_B_up);
+
+[c_max, c_max_ind] = max(corr_func);
+time_shift_with_max_c = lags(c_max_ind);
+\end{verbatim} \cite{doc}
 
 % \newpage
 
@@ -172,7 +217,16 @@ $$ shift(max) = [168, 169] $$
 \begin{thebibliography}{}
     \bibitem{max}
     \textbf{Вероятностные разделы математики.} \\
-    Учебник для бакалавров технических направлений.//Под редакцией Максимова.Ю.Д. - Спб.: "Иван Фёдоров", 2001.  
+    Учебник для бакалавров технических направлений.//Под редакцией Максимова.Ю.Д. - Спб.: "Иван Фёдоров", 2001.
+    
+    \bibitem{wiki}
+    \textbf{Взаимнокорреляционная функция} - 
+    \url{https://ru.wikipedia.org/wiki/%D0%92%D0%B7%D0%B0%D0%B8%D0%BC%D0%BD%D0%BE%D0%BA%D0%BE%D1%80%D1%80%D0%B5%D0%BB%D1%8F%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F_%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8F}
+    
+    \bibitem{doc}
+    \textbf{Cross-correlation function} - 
+	\url{https://www.mathworks.com/help/matlab/ref/xcorr.html}    
+      
 \end{thebibliography}
 
 \end{document}

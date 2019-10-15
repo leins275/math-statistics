@@ -1,5 +1,5 @@
 % Включение пакета signal для вычисления xcorr
-pkg load signal;
+% pkg load signal;
 
 % Считывание данных светимости
 file_name = '37000_SPD16x16.mat';
