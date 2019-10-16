@@ -149,16 +149,40 @@ r = r_{XY} = \dfrac{\dfrac{1}{n}\Sigma{(x_{i} - \overline{x})(y_{i} - \overline{
 
 \begin{figure}[H]
 \caption{Коэффициент корреляции R между светимостями областей выше и ниже экватора.}
+\begin{center}
 \includegraphics[scale = 0.8]{plot3.png} 
+\end{center}
 \end{figure}
+
+
 
 Значение сдвига по времени, на котором Взаимнокорреляционная функция \cite{wiki} достигает максимума.
 $$ lag_{max} = 5 $$
 
 \begin{figure}[H]
-\caption{Гистограмма взаимнокорреляционной функции между севером и югом.}
-\includegraphics[scale = 1]{plot5.png} 
+\caption{Взаимнокорреляционная функция между светимостями областей выше и ниже экватора.}
+\begin{center}
+\includegraphics[scale = 0.6]{plot6.png} 
+\end{center}
 \end{figure}
+
+\begin{figure}[H]
+\caption{Гистограмма максимальных(на интервале 1 мс) лагов на временном отрезке [135, 175].}
+\begin{center}
+\includegraphics[scale = 0.7]{plot8.png} 
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\caption{Гистограмма коррелограммы}
+\begin{center}
+\includegraphics[scale = 0.9]{plot9.png} 
+\end{center}
+\end{figure}
+
+\section{Обсуждения}
+
+В ходе вычислений было получено, что взаимнокорреляционная функция достигает максимума на каждой мс. при нулевом лаге.
 
 \section{Приложения}
 
@@ -199,14 +223,38 @@ sum_B_up = sum_B_up(:)';
 sum_B_low = sum(sum(B_low));
 sum_B_low = sum_B_low(:)';
 
-%%%
-% Вычисление функции автокорреляции между севером и югом
-%%%
+% Введение рассматриваемого отрезка времени
+t_cons_s = 135;
+t_cons_e = 175;
 
-[corr_func, lags] = xcorr(sum_B_low, sum_B_up);
+% Введение временного окна
+w_w = 1;
+t_cons_w = t_cons_s:w_w:t_cons_e;
 
-[c_max, c_max_ind] = max(corr_func);
-time_shift_with_max_c = lags(c_max_ind);
+% Поиск кросс корреляции на всём интервале
+t_w = t(t_w_s < t & t <= t_w_e);
+ind_w = int32((t_w - t_s) / dt + 1);
+sum_B_up_w = sum_B_up(ind_w);
+sum_B_low_w = sum_B_low(ind_w);
+
+[corr_func_glob, lags_glob] = xcorr(sum_B_low_w, sum_B_up_w);
+
+% Основной цикл
+corr_func = [];
+lags = [];
+for t_w_s = t_cons_w(t_cons_w + w_w <= t_cons_e)
+  t_w_e = t_w_s + w_w;
+  t_w = t(t_w_s < t & t <= t_w_e);
+  ind_w = int32((t_w - t_s) / dt + 1);
+  sum_B_up_w = sum_B_up(ind_w);
+  sum_B_low_w = sum_B_low(ind_w);
+  
+  % Нахождение максимального лага для каждой мс на интервале t_cons_w
+  [corr_func_w, lags_w] = xcorr(sum_B_low_w, sum_B_up_w);
+  [c_max, c_max_ind] = max(corr_func_w);
+  corr_func = [corr_func c_max];
+  lags = [lags lags_w(c_max_ind)];
+end
 \end{verbatim} \cite{doc}
 
 % \newpage
